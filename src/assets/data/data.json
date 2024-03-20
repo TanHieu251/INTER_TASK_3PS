@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "name": "Nhân Sự",
+    "sideBar": [
+      {
+        "id": 1,
+        "name": "Đánh giá nhân sự",
+        "child": [{ "id": 1, "childName": "Ngân hàng câu hỏi" }]
+      }
+    ]
+  }
+]

@@ -1,59 +1,73 @@
 <div class="flex-col w-[223px] shadow-md">
-  <div class="">
+  <div>
     <a href=""
       ><img
         src="https://www.hachihachi.com.vn/Uploads/systems/HachiLogo.png"
         alt=""
     /></a>
   </div>
+  <div *ngIf="selectedNavbarItem">
+    <!-- Chèn các phần tử hoặc logic để hiển thị khi selectedNavbarItem có giá trị -->
+  </div>
   <div class="bg-slate-600 h-screen">
     <ul class="block w-full">
-      <li>
-        <div class="flex items-center justify-between px-3 bg-slate-700">
-          <span class="text-green-600 items-center flex py-4"> XXX </span>
-          <!-- <svg
-            class="w-6 h-6 text-green-600"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
+      <ng-container *ngFor="let sidebarItem of selectedNavbarItem?.sideBar">
+        <li>
+          <div
+            class="flex items-center justify-between px-3 bg-slate-700 cursor-pointer"
+            (click)="toggleDropdown(sidebarItem)"
           >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m19 9-7 7-7-7"
-            />
-          </svg> -->
-          <svg
-            class="w-6 h-6 text-green-600"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m5 15 7-7 7 7"
-            />
-          </svg>
-        </div>
-        <div>
-          <span
-            class="text-white items-center justify-center flex py-4 bg-slate-700"
-          >
-            ?????
-          </span>
-        </div>
-      </li>
+            <span class="text-green-600 items-center flex py-4">
+              {{ sidebarItem.name }}
+            </span>
+            <svg
+              *ngIf="!isDropdownOpen(sidebarItem)"
+              class="w-6 h-6 text-green-600"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 9-7 7-7-7"
+              />
+            </svg>
+            <svg
+              *ngIf="isDropdownOpen(sidebarItem)"
+              class="w-6 h-6 text-green-600"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m5 15 7-7 7 7"
+              />
+            </svg>
+          </div>
+          <div *ngIf="isDropdownOpen(sidebarItem)">
+            <button *ngFor="let child of sidebarItem.child" class="w-full">
+              <div
+                class="text-white items-center justify-center flex py-4 bg-slate-700"
+              >
+                <span>{{ child.childName }}</span>
+              </div>
+            </button>
+          </div>
+        </li>
+      </ng-container>
     </ul>
   </div>
 </div>

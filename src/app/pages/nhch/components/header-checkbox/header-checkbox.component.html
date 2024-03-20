@@ -9,8 +9,9 @@
       <input
         id="vue-checkbox-list1"
         type="checkbox"
-        value=""
-        class="w-4 h-4 accent-green-500"
+        value="soan_thao"
+        class="w-4 h-4 accent-green-600"
+        (change)="filterGetStatus($event)"
       />
     </li>
     <li
@@ -22,7 +23,8 @@
       <input
         id="vue-checkbox-list2"
         type="checkbox"
-        value=""
+        value="gui_duyet"
+        (change)="filterGetStatus($event)"
         class="w-4 h-4 accent-green-600"
       />
     </li>
@@ -35,7 +37,8 @@
       <input
         id="vue-checkbox-list3"
         type="checkbox"
-        value=""
+        value="duyet_ap_dung"
+        (change)="filterGetStatus($event)"
         class="w-4 h-4 accent-green-600"
       />
     </li>
@@ -48,7 +51,8 @@
       <input
         id="vue-checkbox-list4"
         type="checkbox"
-        value=""
+        value="ngung_apdung"
+        (change)="filterGetStatus($event)"
         class="w-4 h-4 accent-green-600"
       />
     </li>

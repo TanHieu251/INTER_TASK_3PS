@@ -32,10 +32,14 @@
           type="text"
           placeholder=" Tìm theo mã và câu hỏi"
           class="w-[500px] py-2 rounded-md"
+          [(ngModel)]="searchText"
         />
       </div>
 
-      <button class="bg-green-700 flex text-white p-2 rounded-sm">
+      <button
+        class="bg-green-700 flex text-white p-2 rounded-sm"
+        (click)="onSearch()"
+      >
         <svg
           class="w-6 h-6 text-gray-800 dark:text-white"
           aria-hidden="true"
