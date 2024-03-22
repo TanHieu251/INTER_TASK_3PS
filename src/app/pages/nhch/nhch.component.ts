@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavbarItem } from './models/navBar.model';
-import { QuestionBank } from './models/questionBank.model';
 
 @Component({
   selector: 'app-nhch',
@@ -9,13 +8,29 @@ import { QuestionBank } from './models/questionBank.model';
 export class NhchComponent {
   selectedNavbarItem: NavbarItem | null = null;
   searchText: string = '';
-
+  checkedValues: string[] = [];
+  isCheckboxChecked: boolean = false;
   onNavbarItemClicked(item: NavbarItem): void {
     this.selectedNavbarItem = item;
     console.log(this.selectedNavbarItem);
   }
+
+  onChecked(checkedValues: string[]): void {
+    if (checkedValues && checkedValues.length > 0) {
+      this.checkedValues = checkedValues;
+    } else {
+      this.checkedValues = [];
+    }
+  }
+
   onSearch(searchText: string): void {
     this.searchText = searchText;
     // console.log(searchText);
+  }
+
+  onResetFilter(): void {
+    this.searchText = '';
+    this.checkedValues = [];
+    this.isCheckboxChecked = !this.isCheckboxChecked;
   }
 }

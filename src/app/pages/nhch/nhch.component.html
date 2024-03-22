@@ -2,8 +2,16 @@
   <app-sidebar [selectedNavbarItem]="selectedNavbarItem"></app-sidebar>
   <div class="grow">
     <app-navbar (openSidebar)="onNavbarItemClicked($event)"></app-navbar>
-    <app-header-checkbox></app-header-checkbox>
-    <app-filter (searchValueChanged)="onSearch($event)"></app-filter>
-    <app-quenstionbank [searchText]="searchText"></app-quenstionbank>
+    <app-header-checkbox
+      (filterStatus)="onChecked($event)"
+    ></app-header-checkbox>
+    <app-filter
+      (filterReset)="onResetFilter()"
+      (searchValueChanged)="onSearch($event)"
+    ></app-filter>
+    <app-quenstionbank
+      [searchText]="searchText"
+      [checkedValues]="checkedValues"
+    ></app-quenstionbank>
   </div>
 </div>

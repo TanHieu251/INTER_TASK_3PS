@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { GridModule } from '@progress/kendo-angular-grid';
 import { PopupModule } from '@progress/kendo-angular-popup';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+import { PagerModule } from '@progress/kendo-angular-grid';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +36,8 @@ import { QuenstionbankComponent } from './pages/nhch/components/quenstionbank/qu
     FormsModule,
     PopupModule,
     BrowserAnimationsModule,
+    DialogsModule,
+    PagerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

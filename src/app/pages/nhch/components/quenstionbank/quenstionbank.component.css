@@ -36,6 +36,10 @@
 
 ::ng-deep .k-grid td {
   padding: 10px 0;
+  max-width: 200px; /* Đặt chiều rộng tối đa của cột */
+  white-space: nowrap; /* Ngăn tràn dòng */
+  overflow: hidden; /* Ẩn nội dung vượt quá */
+  text-overflow: ellipsis; /* Hiển thị dấu ... khi vượt quá */
 }
 
 ::ng-deep .k-grid td h3 {
@@ -89,4 +93,62 @@
 
 ::ng-deep .myCustomGrid.k-grid .k-grid-pager .k-pager-last:after {
   content: "cuối";
+}
+
+::ng-deep .myDialog .k-window {
+  background-color: white;
+  box-shadow: 0 0px 2px 0px #cbcbcb;
+  border-radius: 10px;
+  border: none;
+}
+
+::ng-deep .myDialog .k-window-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  text-align: center;
+  border-bottom: 1px solid rgb(229, 231, 235);
+  padding: 20px 0;
+}
+
+::ng-deep .myDialog .k-window-titlebar span {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+::ng-deep .myDialog .buttonDialog {
+  display: flex;
+  border-top: 1px solid rgb(229, 231, 235);
+  padding: 0;
+  margin: 0;
+  /* padding: 20px 10px; */
+  background-color: red;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+::ng-deep .myDialog .buttonDialog .ng-star-inserted {
+  color: white;
+  width: 50%;
+  padding: 20px 0;
+}
+
+::ng-deep .myDialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  outline: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10001;
+}
+
+::ng-deep .myDialog .primary {
+  color: blue;
+  background-color: blue !important;
 }

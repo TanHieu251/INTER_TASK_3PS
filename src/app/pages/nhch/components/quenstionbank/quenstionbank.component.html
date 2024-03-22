@@ -1,15 +1,15 @@
 <div class="mx-6">
   <kendo-grid
+    [data]="filterCheckedQuestionBank()"
     [data]="gridView"
+    [data]="getSearchTextQuestionBank()"
     [pageSize]="pageSize"
     [skip]="skip"
     [pageable]="true"
     (pageChange)="pageChange($event)"
     kendoGridSelectBy="id"
     [(selectedKeys)]="mySelection"
-    [style.maxHeight.px]="500"
     class="myCustomGrid"
-    (filterChange)="getSearchTextQuestionBank()"
   >
     <kendo-grid-column-group [columnMenu]="false">
       <kendo-grid-checkbox-column
@@ -73,6 +73,9 @@
         title="Thời gian làm "
         [width]="160"
       >
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span>{{ dataItem.time }}s</span>
+        </ng-template>
       </kendo-grid-column>
       <kendo-grid-column
         [headerStyle]="{ 'text-align': 'center' }"
@@ -100,15 +103,16 @@
       >
         <ng-template kendoGridCellTemplate let-dataItem>
           <!-- <button #anchor (click)="checkStatus(dataItem.status)">...</button> -->
-
-          <button
-            class="text-black hover:bg-gray-400 hover:text-white w-[40px] h-[58px]"
-            kendoButton
-            #anchor
-            (click)="toggleAndCheck(dataItem, anchor)"
-          >
-            ...
-          </button>
+          <div class="w-[40px] h-[58px] items-center flex justify-center">
+            <button
+              class="text-black hover:bg-gray-400 hover:text-white px-3 py-1"
+              kendoButton
+              #anchor
+              (click)="toggleAndCheck(dataItem, anchor)"
+            >
+              ...
+            </button>
+          </div>
         </ng-template>
       </kendo-grid-column>
     </kendo-grid-column-group>
@@ -129,10 +133,30 @@
         class="k-pager-nav-btn"
       ></kendo-pager-next-buttons>
     </ng-template>
-
-    <kendo-grid-messages [pagerItemsPerPage]="''"></kendo-grid-messages>
   </kendo-grid>
-
+  <kendo-dialog
+    class="myDialog"
+    title="Xóa câu hỏi"
+    *ngIf="dialogDelete"
+    (close)="close('cancel')"
+    [minWidth]="250"
+    [width]="450"
+  >
+    <div class="flex flex-col justify-center items-center py-5">
+      <p>Bạn chắc chắn muốn xóa phân nhóm</p>
+      <p>Hệ thống cửa hàng Hachi</p>
+      <p>Hachi có mặt từ năm nào?</p>
+    </div>
+    <div class="flex justify-center items-center py-5">
+      <p>Đơn vị xóa sẽ <span>KHÔNG</span> thể khôi phục lại</p>
+    </div>
+    <kendo-dialog-actions class="buttonDialog">
+      <button kendoButton (click)="close('no')">KHÔNG XÓA</button>
+      <button kendoButton (click)="close('yes')" themeColor="primary">
+        XÓA
+      </button>
+    </kendo-dialog-actions>
+  </kendo-dialog>
   <kendo-popup
     [anchor]="anchor"
     (anchorViewportLeave)="show = false"
@@ -140,13 +164,14 @@
     class="my-popup"
   >
     <div
-      class="bg-gray-400 text-white font-normal w-[150px] relative left-[-73px] top-[-58px]"
+      class="bg-gray-400 text-white font-normal w-[150px] relative left-[-73px] top-[-35px]"
     >
       <button
         *ngFor="let func of currentFunctions"
         class="w-full h-[50px] text-white"
+        (click)="handleButton(selectedQuestion, func.name)"
       >
-        {{ func }}
+        {{ func.name }}
       </button>
     </div>
   </kendo-popup>

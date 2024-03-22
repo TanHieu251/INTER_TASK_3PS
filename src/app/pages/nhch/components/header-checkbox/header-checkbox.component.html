@@ -12,6 +12,8 @@
         value="soan_thao"
         class="w-4 h-4 accent-green-600"
         (change)="filterGetStatus($event)"
+        [(ngModel)]="ischecked"
+        (change)="(onCheckboxChange)"
       />
     </li>
     <li
