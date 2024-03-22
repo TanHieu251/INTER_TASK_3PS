@@ -1,63 +1,92 @@
-.my-app {
-  display: block;
-  box-sizing: border-box;
-  padding: 30px;
+::ng-deep .k-grid {
+  padding: 0 50px;
+}
+::ng-deep .k-grid table {
+  width: 100%;
+  height: auto;
+  border-spacing: 0 4px;
+  margin: 2px 0;
+}
+::ng-deep .k-grid .k-grid-header tr {
+  padding: 0 !important;
+  background-color: rgb(229, 231, 235) !important;
 }
 
-.my-app > .k-icon.k-i-loading {
-  font-size: 64px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+::ng-deep .k-grid .k-grid-content .k-grid td.title-column {
+  max-width: 200px; /* Độ rộng tối đa của cột */
+  white-space: nowrap; /* Ngăn nội dung xuống dòng */
+  overflow: hidden; /* Ẩn phần nội dung vượt quá */
+  text-overflow: ellipsis; /* Hiển thị dấu ba chấm khi vượt quá */
 }
 
-.example-wrapper {
-  min-height: 280px;
-  align-content: flex-start;
+.k-grid th.k-header {
+  max-width: 300px; /* Đặt chiều rộng tối đa */
+  white-space: nowrap; /* Ngăn tiêu đề trên nhiều dòng */
+  overflow: hidden; /* Ẩn phần vượt quá */
+  text-overflow: ellipsis; /* Thêm dấu ba chấm ở cuối khi vượt quá */
+}
+::ng-deep .k-grid .k-grid-content .k-grid td.title-column {
+  max-width: 200px; /* Đặt chiều rộng tối đa của cột */
+  white-space: nowrap; /* Ngăn tràn dòng */
+  overflow: hidden; /* Ẩn nội dung vượt quá */
+  text-overflow: ellipsis; /* Hiển thị dấu ... khi vượt quá */
+}
+::ng-deep .k-grid tr {
 }
 
-.example-wrapper p,
-.example-col p {
-  margin: 0 0 10px;
+::ng-deep .k-grid td {
+  padding: 10px 0;
 }
 
-.example-wrapper p:first-child,
-.example-col p:first-child {
-  margin-top: 0;
+::ng-deep .k-grid td h3 {
+  font-weight: 600;
+  font-size: 17px;
 }
 
-.example-col {
-  display: inline-block;
-  vertical-align: top;
-  padding-right: 20px;
-  padding-bottom: 20px;
+::ng-deep .k-grid .k-selected td {
+  background: rgb(90, 143, 109);
 }
 
-.example-config {
-  margin: 0 0 20px;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+::ng-deep .myCustomGrid.k-grid tr {
+  height: 26px;
+  position: relative;
+  background: white;
+  width: 100vh;
 }
 
-.event-log {
-  margin: 0;
-  padding: 0;
-  max-height: 100px;
-  overflow-y: auto;
-  list-style-type: none;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background-color: #fff;
+::ng-deep kendo-popup {
+  position: relative;
+  left: -73px;
+  top: -24px;
+}
+::ng-deep .my-popup {
+  position: fixed;
+  z-index: 2;
 }
 
-.event-log li {
-  margin: 0;
-  padding: 0.3em;
-  line-height: 1.2em;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+::ng-deep .k-grid .kendo-openPopup {
+  display: flex;
+  color: white;
+  z-index: 3;
+}
+::ng-deep .myCustomGrid.k-grid .k-grid-pager .k-pager-first .k-icon,
+::ng-deep .myCustomGrid.k-grid .k-grid-pager .k-pager-last .k-icon {
+  display: none;
 }
 
-.event-log li:last-child {
-  margin-bottom: -1px;
+::ng-deep .myCustomGrid.k-grid .k-grid-pager {
+  display: flex;
+  gap: 5px;
+}
+
+::ng-deep .myCustomGrid.k-grid .k-grid-pager .k-pager-sizes {
+  flex-grow: 1;
+}
+
+::ng-deep .myCustomGrid.k-grid .k-grid-pager .k-pager-first:before {
+  content: "đầu";
+}
+
+::ng-deep .myCustomGrid.k-grid .k-grid-pager .k-pager-last:after {
+  content: "cuối";
 }

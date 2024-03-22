@@ -1,14 +1,15 @@
-<div class="mt-10">
+<div class="mx-6">
   <kendo-grid
-    [data]="getSearchTextQuestionBank()"
+    [data]="gridView"
     [pageSize]="pageSize"
     [skip]="skip"
     [pageable]="true"
     (pageChange)="pageChange($event)"
     kendoGridSelectBy="id"
     [(selectedKeys)]="mySelection"
-    class="my-app"
-    [height]="550"
+    [style.maxHeight.px]="500"
+    class="myCustomGrid"
+    (filterChange)="getSearchTextQuestionBank()"
   >
     <kendo-grid-column-group [columnMenu]="false">
       <kendo-grid-checkbox-column
@@ -22,26 +23,47 @@
       ></kendo-grid-checkbox-column>
 
       <kendo-grid-column
-        [style]="{ 'text-align': 'left', }"
+        [style]="{ 'text-align': 'left' }"
         [headerStyle]="{ 'text-align': 'left' }"
         field="title"
         title="Câu hỏi"
         [width]="780"
-        class="py-[20px] font-bold my-[2px] shadow-sm"
+        [scrollTop]="50"
+        class="title-column"
       >
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <div>
+            <h3>{{ dataItem.title }}</h3>
+          </div>
+          <div *ngIf="dataItem.code && dataItem.typeQuestion">
+            <div class="flex gap-5">
+              <span class="code">{{ dataItem.code }}</span>
+              <span class="border-l-2"></span>
+              <span class="type">{{ dataItem.typeQuestion }}</span>
+            </div>
+          </div>
+          <div *ngIf="dataItem.code && !dataItem.typeQuestion">
+            <div class="flex gap-5">
+              <span class="code">{{ dataItem.code }}</span>
+            </div>
+          </div>
+          <div *ngIf="!dataItem.code && dataItem.typeQuestion">
+            <div class="flex gap-5">
+              <span class="type">{{ dataItem.typeQuestion }}</span>
+            </div>
+          </div>
+        </ng-template>
       </kendo-grid-column>
 
       <kendo-grid-column
         [style]="{
           'text-align': 'left',
-          'margin-top': '5px',
-          'margin-bottom': '15px',
+          
         }"
         [headerStyle]="{ 'text-align': 'left' }"
         field="group"
         title="Phân nhóm"
         [width]="280"
-        class="py-[20px] my-[2px] shadow-sm"
       >
       </kendo-grid-column>
       <kendo-grid-column
@@ -50,23 +72,82 @@
         field="time"
         title="Thời gian làm "
         [width]="160"
-        class="py-[20px] my-[2px] shadow-sm"
       >
       </kendo-grid-column>
       <kendo-grid-column
         [headerStyle]="{ 'text-align': 'center' }"
-        [style]="{ 'text-align': 'center' }"
+        [style]="{ 'text-align': 'center', 'font-weight': '500' }"
         field="status"
         title="Tình trạng"
         [width]="240"
-        class="py-[20px] my-[2px] shadow-sm"
       >
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span [style.color]="getStatusColor(dataItem.status)">
+            {{ getStatusText(dataItem.status) }}</span
+          >
+        </ng-template>
       </kendo-grid-column>
-      <kendo-grid-column>
-        <ng-template kendoGridCellTemplate>
-          <button class="grow items-center">...</button>
+      <kendo-grid-column
+        [width]="50"
+        class="kendo-openPopup"
+        [style]="{
+          'display:': 'flex',
+          'border-left': '1px solid ',
+          'text-align ': 'center',
+          'justify-content': 'center',
+          
+        }"
+      >
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <!-- <button #anchor (click)="checkStatus(dataItem.status)">...</button> -->
+
+          <button
+            class="text-black hover:bg-gray-400 hover:text-white w-[40px] h-[58px]"
+            kendoButton
+            #anchor
+            (click)="toggleAndCheck(dataItem, anchor)"
+          >
+            ...
+          </button>
         </ng-template>
       </kendo-grid-column>
     </kendo-grid-column-group>
+    <ng-template
+      kendoPagerTemplate
+      let-totalPages="totalPages"
+      let-currentPage="currentPage"
+    >
+      Hiển thị<span class="moitrang"> mỗi trang </span>
+      <kendo-pager-page-sizes [pageSizes]="[pageSize]"></kendo-pager-page-sizes>
+      <kendo-pager-prev-buttons
+        class="k-pager-nav-btn"
+      ></kendo-pager-prev-buttons>
+      <kendo-pager-numeric-buttons
+        [buttonCount]="4"
+      ></kendo-pager-numeric-buttons>
+      <kendo-pager-next-buttons
+        class="k-pager-nav-btn"
+      ></kendo-pager-next-buttons>
+    </ng-template>
+
+    <kendo-grid-messages [pagerItemsPerPage]="''"></kendo-grid-messages>
   </kendo-grid>
+
+  <kendo-popup
+    [anchor]="anchor"
+    (anchorViewportLeave)="show = false"
+    *ngIf="show"
+    class="my-popup"
+  >
+    <div
+      class="bg-gray-400 text-white font-normal w-[150px] relative left-[-73px] top-[-58px]"
+    >
+      <button
+        *ngFor="let func of currentFunctions"
+        class="w-full h-[50px] text-white"
+      >
+        {{ func }}
+      </button>
+    </div>
+  </kendo-popup>
 </div>
