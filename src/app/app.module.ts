@@ -7,6 +7,8 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { PopupModule } from '@progress/kendo-angular-popup';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { PagerModule } from '@progress/kendo-angular-grid';
+import { IconModule } from '@progress/kendo-angular-icons';
+import { NotificationModule } from '@progress/kendo-angular-notification';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +40,8 @@ import { QuenstionbankComponent } from './pages/nhch/components/quenstionbank/qu
     BrowserAnimationsModule,
     DialogsModule,
     PagerModule,
+    IconModule,
+    NotificationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,5 +1,5 @@
 <div class="flex w-full justify-between items-center px-4 mt-3 mb-3">
-  <ul class="items-center w-[50%] flex text-sm font-medium gap-4">
+  <ul class="items-center w-[56%] flex text-sm font-medium gap-4">
     <li
       class="flex items-center justify-between bg-white border rounded-full w-full px-5 py-2 border-gray-200"
     >
@@ -54,6 +54,20 @@
         id="vue-checkbox-list4"
         type="checkbox"
         value="ngung_apdung"
+        (change)="filterGetStatus($event)"
+        class="w-4 h-4 accent-green-600"
+      />
+    </li>
+    <li
+      class="flex py-2 items-center justify-between w-full bg-white border rounded-full px-5 border-gray-200"
+    >
+      <label for="vue-checkbox-list5" class="text-sm text-gray-500 font-medium"
+        >Trả về</label
+      >
+      <input
+        id="vue-checkbox-list5"
+        type="checkbox"
+        value="tra_Ve"
         (change)="filterGetStatus($event)"
         class="w-4 h-4 accent-green-600"
       />

@@ -1,45 +1,30 @@
-::ng-deep .k-grid {
-  padding: 0 50px;
+::ng-deep .myCustomGrid .k-grid .k-grid-header .k-table-th:first-child {
+  border: none;
 }
-::ng-deep .k-grid table {
+
+::ng-deep .myCustomGrid .k-table-thead {
+  background: transparent;
+}
+::ng-deep .myCustomGrid .k-grid-table-wrap {
+  /* overflow-y: auto; */
+  min-height: 300px;
+}
+
+::ng-deep .myCustomGrid.k-grid {
+  background-color: rgb(229, 231, 235);
+}
+
+::ng-deep .myCustomGrid .k-grid-header {
+  border: none;
+  background: transparent;
+}
+::ng-deep .myCustomGrid .k-grid-header-wrap {
+  background-color: transparent;
+}
+::ng-deep .myCustomGrid .k-grid-content .k-grid-table {
   width: 100%;
   height: auto;
-  border-spacing: 0 4px;
-  margin: 2px 0;
-}
-::ng-deep .k-grid .k-grid-header tr {
-  padding: 0 !important;
-  background-color: rgb(229, 231, 235) !important;
-}
-
-::ng-deep .k-grid .k-grid-content .k-grid td.title-column {
-  max-width: 200px; /* Độ rộng tối đa của cột */
-  white-space: nowrap; /* Ngăn nội dung xuống dòng */
-  overflow: hidden; /* Ẩn phần nội dung vượt quá */
-  text-overflow: ellipsis; /* Hiển thị dấu ba chấm khi vượt quá */
-}
-
-.k-grid th.k-header {
-  max-width: 300px; /* Đặt chiều rộng tối đa */
-  white-space: nowrap; /* Ngăn tiêu đề trên nhiều dòng */
-  overflow: hidden; /* Ẩn phần vượt quá */
-  text-overflow: ellipsis; /* Thêm dấu ba chấm ở cuối khi vượt quá */
-}
-::ng-deep .k-grid .k-grid-content .k-grid td.title-column {
-  max-width: 200px; /* Đặt chiều rộng tối đa của cột */
-  white-space: nowrap; /* Ngăn tràn dòng */
-  overflow: hidden; /* Ẩn nội dung vượt quá */
-  text-overflow: ellipsis; /* Hiển thị dấu ... khi vượt quá */
-}
-::ng-deep .k-grid tr {
-}
-
-::ng-deep .k-grid td {
-  padding: 10px 0;
-  max-width: 200px; /* Đặt chiều rộng tối đa của cột */
-  white-space: nowrap; /* Ngăn tràn dòng */
-  overflow: hidden; /* Ẩn nội dung vượt quá */
-  text-overflow: ellipsis; /* Hiển thị dấu ... khi vượt quá */
+  border-spacing: 0 10px;
 }
 
 ::ng-deep .k-grid td h3 {
@@ -47,26 +32,24 @@
   font-size: 17px;
 }
 
-::ng-deep .k-grid .k-selected td {
+::ng-deep .k-grid .k-master-row .k-table-row .k-selected {
   background: rgb(90, 143, 109);
 }
 
-::ng-deep .myCustomGrid.k-grid tr {
-  height: 26px;
-  position: relative;
-  background: white;
-  width: 100vh;
+::ng-deep .myCustomGrid .k-grid-cell-inner .k-link {
+  display: none;
 }
 
-::ng-deep kendo-popup {
+::ng-deep .myCustomGrid kendo-popup {
   position: relative;
-  left: -73px;
-  top: -24px;
+  left: 1008px;
+  top: -54px;
 }
-::ng-deep .my-popup {
-  position: fixed;
+/* ::ng-deep .my-popup {
+  left: 1008px;
+  top: 336px;
   z-index: 2;
-}
+} */
 
 ::ng-deep .k-grid .kendo-openPopup {
   display: flex;
@@ -87,18 +70,10 @@
   flex-grow: 1;
 }
 
-::ng-deep .myCustomGrid.k-grid .k-grid-pager .k-pager-first:before {
-  content: "đầu";
-}
-
-::ng-deep .myCustomGrid.k-grid .k-grid-pager .k-pager-last:after {
-  content: "cuối";
-}
-
 ::ng-deep .myDialog .k-window {
   background-color: white;
   box-shadow: 0 0px 2px 0px #cbcbcb;
-  border-radius: 10px;
+  /* border-radius: 5px; */
   border: none;
 }
 
@@ -110,6 +85,8 @@
   text-align: center;
   border-bottom: 1px solid rgb(229, 231, 235);
   padding: 20px 0;
+  /* border-top-left-radius: 5px;
+  border-top-right-radius: 5px; */
 }
 
 ::ng-deep .myDialog .k-window-titlebar span {
@@ -123,15 +100,22 @@
   padding: 0;
   margin: 0;
   /* padding: 20px 10px; */
-  background-color: red;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  background-color: rgb(253, 118, 118);
+  /* border-bottom-left-radius: 5px; */
+  /* border-bottom-right-radius: 5px; */
+}
+
+::ng-deep .myDialog .buttonDialog .khongxoa {
+  background-color: white;
+  color: rgb(156, 163, 183) !important;
 }
 
 ::ng-deep .myDialog .buttonDialog .ng-star-inserted {
+  /* color: rgb(156, 163, 183); */
   color: white;
   width: 50%;
   padding: 20px 0;
+  /* border-radius: 5px; */
 }
 
 ::ng-deep .myDialog {
@@ -148,7 +132,19 @@
   z-index: 10001;
 }
 
-::ng-deep .myDialog .primary {
-  color: blue;
-  background-color: blue !important;
+::ng-deep .myDialog .k-window .k-window-titlebar .k-dialog-title {
+  display: block;
 }
+
+::ng-deep .myDialog .k-window .k-window-titlebar .k-dialog-titlebar-actions {
+  display: none;
+}
+
+::ng-deep .myDialog .content .contentChild {
+  color: #36c8cf;
+  font-weight: 600;
+  font-size: 13px;
+  width: 60%;
+  text-align: center;
+}
+/*  */

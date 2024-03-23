@@ -1,5 +1,5 @@
-<div class="flex-col w-[223px] shadow-md">
-  <div>
+<div class="flex-col bg-slate-600 h-screen w-[223px] shadow-md">
+  <div class="bg-white">
     <a href=""
       ><img
         src="https://www.hachihachi.com.vn/Uploads/systems/HachiLogo.png"
@@ -9,17 +9,21 @@
   <div *ngIf="selectedNavbarItem">
     <!-- Chèn các phần tử hoặc logic để hiển thị khi selectedNavbarItem có giá trị -->
   </div>
-  <div class="bg-slate-600 min-h-screen">
+  <div class="">
     <ul class="block w-full">
       <ng-container *ngFor="let sidebarItem of selectedNavbarItem?.sideBar">
         <li>
           <div
-            class="flex items-center justify-between px-3 bg-slate-700 cursor-pointer"
+            class="flex items-center justify-between px-3 bg-slate-700 cursor-pointer w-full relative"
             (click)="toggleDropdown(sidebarItem)"
           >
-            <span class="text-green-600 items-center flex py-4">
+            <div
+              class="bg-[#5cb800] absolute w-[4px] top-0 bottom-0 left-0"
+            ></div>
+            <span class="text-[#5cb800] items-center flex py-4">
               {{ sidebarItem.name }}
             </span>
+
             <svg
               *ngIf="!isDropdownOpen(sidebarItem)"
               class="w-6 h-6 text-green-600"
@@ -58,10 +62,13 @@
             </svg>
           </div>
           <div *ngIf="isDropdownOpen(sidebarItem)">
-            <button *ngFor="let child of sidebarItem.child" class="w-full">
+            <button *ngFor="let child of sidebarItem.child" class="w-full flex">
               <div
-                class="text-white items-center justify-center flex py-4 bg-slate-700"
+                class="text-white items-center justify-center flex py-4 bg-slate-700 relative w-full"
               >
+                <div
+                  class="bg-white absolute w-[4px] top-0 left-0 bottom-0"
+                ></div>
                 <span>{{ child.childName }}</span>
               </div>
             </button>

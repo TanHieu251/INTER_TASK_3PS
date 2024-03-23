@@ -1,14 +1,14 @@
 <div class="mx-6">
   <kendo-grid
-    [data]="filterCheckedQuestionBank()"
     [data]="gridView"
-    [data]="getSearchTextQuestionBank()"
+    [data]="combineFilters()"
     [pageSize]="pageSize"
     [skip]="skip"
     [pageable]="true"
     (pageChange)="pageChange($event)"
     kendoGridSelectBy="id"
     [(selectedKeys)]="mySelection"
+    [style.height.px]="650"
     class="myCustomGrid"
   >
     <kendo-grid-column-group [columnMenu]="false">
@@ -94,7 +94,7 @@
         [width]="50"
         class="kendo-openPopup"
         [style]="{
-          'display:': 'flex',
+          'display':'flex',
           'border-left': '1px solid ',
           'text-align ': 'center',
           'justify-content': 'center',
@@ -121,17 +121,17 @@
       let-totalPages="totalPages"
       let-currentPage="currentPage"
     >
-      Hiển thị<span class="moitrang"> mỗi trang </span>
-      <kendo-pager-page-sizes [pageSizes]="[pageSize]"></kendo-pager-page-sizes>
-      <kendo-pager-prev-buttons
-        class="k-pager-nav-btn"
-      ></kendo-pager-prev-buttons>
+      Hiển thị mỗi trang
+      <kendo-pager-page-sizes [pageSizes]="size"></kendo-pager-page-sizes>
+
+      <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
       <kendo-pager-numeric-buttons
-        [buttonCount]="4"
+        [buttonCount]="2"
       ></kendo-pager-numeric-buttons>
-      <kendo-pager-next-buttons
-        class="k-pager-nav-btn"
-      ></kendo-pager-next-buttons>
+      <kendo-pager-next-buttons></kendo-pager-next-buttons>
+
+      <ng-template kendoGridNoRecordsTemplate=""> Không có sản phẩm</ng-template
+      ><kendo-grid-messages [pagerItemsPerPage]="''"></kendo-grid-messages>
     </ng-template>
   </kendo-grid>
   <kendo-dialog
@@ -142,16 +142,22 @@
     [minWidth]="250"
     [width]="450"
   >
-    <div class="flex flex-col justify-center items-center py-5">
+    <div class="content flex flex-col justify-center items-center py-5">
       <p>Bạn chắc chắn muốn xóa phân nhóm</p>
-      <p>Hệ thống cửa hàng Hachi</p>
-      <p>Hachi có mặt từ năm nào?</p>
+      <p class="contentChild">
+        {{ splitCamelCase(selectedQuestioDialog.title) }}
+      </p>
     </div>
     <div class="flex justify-center items-center py-5">
-      <p>Đơn vị xóa sẽ <span>KHÔNG</span> thể khôi phục lại</p>
+      <p>
+        Đơn vị xóa sẽ <span style="color: #fd7676">KHÔNG</span> thể khôi phục
+        lại
+      </p>
     </div>
-    <kendo-dialog-actions class="buttonDialog">
-      <button kendoButton (click)="close('no')">KHÔNG XÓA</button>
+    <kendo-dialog-actions class="buttonDialog"> 
+      <button class="khongxoa" kendoButton (click)="close('no')">
+        KHÔNG XÓA
+      </button>
       <button kendoButton (click)="close('yes')" themeColor="primary">
         XÓA
       </button>
@@ -163,9 +169,7 @@
     *ngIf="show"
     class="my-popup"
   >
-    <div
-      class="bg-gray-400 text-white font-normal w-[150px] relative left-[-73px] top-[-35px]"
-    >
+    <div class="bg-gray-400 text-white font-normal w-[150px]">
       <button
         *ngFor="let func of currentFunctions"
         class="w-full h-[50px] text-white"

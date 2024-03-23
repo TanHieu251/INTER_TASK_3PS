@@ -17,20 +17,21 @@ export class QuenstionbankComponent implements OnInit {
       'Xóa câu hỏi',
     ],
     [QuestionStatus.PendingApproval]: ['Phê duyệt', 'Trả về'],
-    [QuestionStatus.Approved]: ['Chỉnh sửa', 'Xem chi tiết', 'Ngưng áp dụng'],
+    [QuestionStatus.Approved]: ['Xem chi tiết', 'Ngưng áp dụng'],
     [QuestionStatus.Discontinued]: ['Xem chi tiết', 'Phê duyệt', 'Trả về'],
     [QuestionStatus.Returned]: ['Chỉnh sửa', 'Gửi duyệt'],
   };
 
   public gridView: GridDataResult | null = null;
-  public pageSize = 5;
+  public pageSize = 3;
+  public size = [75, 50, 25];
   public skip = 0;
   public mySelection: string[] = [];
   public dialogDelete = false;
   public show: boolean = false;
-  // public dialogDelete: boolean = false;
   public currentFunctions: { name: string }[] = [];
   public selectedQuestion: QuestionBank | null = null;
+  public selectedQuestioDialog: any | null = null;
 
   @Input() anchor: any;
   @Input() searchText: string = '';
@@ -47,12 +48,11 @@ export class QuenstionbankComponent implements OnInit {
   }
   ngOnInit(): void {
     this.currentFunctions = [];
-
-    this.getSearchTextQuestionBank();
   }
 
   public pageChange(event: PageChangeEvent): void {
     this.skip = event.skip;
+    this.pageSize = event.take;
     this.loadItems();
   }
 
@@ -63,34 +63,62 @@ export class QuenstionbankComponent implements OnInit {
     };
   }
 
-  // lọc question bằng method search text
-  getSearchTextQuestionBank(): GridDataResult | null {
-    if (!this.searchText.trim()) {
-      return this.gridView;
-    } else {
-      console.log(this.searchText);
-      const filteredResults = this.items.filter((item) =>
+  // // lọc question bằng method search text
+  // getSearchTextQuestionBank(): GridDataResult | null {
+  //   if (!this.searchText.trim()) {
+  //     return this.gridView;
+  //   } else {
+  //     console.log(this.searchText);
+  //     const filteredResults = this.items.filter((item) =>
+  //       item.title.toLowerCase().includes(this.searchText.toLowerCase())
+  //     );
+  //     console.log(filteredResults);
+  //     return { data: filteredResults, total: filteredResults.length };
+  //   }
+  // }
+  // //lọc question bằng method filter checkbox
+  // filterCheckedQuestionBank(): GridDataResult | null {
+  //   console.log('Checked values:', this.checkedValues);
+  //   if (this.checkedValues && this.checkedValues.length > 0) {
+  //     const filteredItems = this.items.filter((item) =>
+  //       this.checkedValues.includes(item.status.toString())
+  //     );
+
+  //     return {
+  //       data: filteredItems,
+  //       total: filteredItems.length,
+  //     };
+  //   } else {
+  //     // If no items are checked, return null or an empty GridDataResult
+  //     return this.gridView; // or return { data: [], total: 0 };
+  //   }
+  // }
+
+  //lọc sản phẩm
+  combineFilters(): GridDataResult | null {
+    // Lọc theo searchText
+    let filteredItems = this.items;
+    if (this.searchText.trim()) {
+      filteredItems = filteredItems.filter((item) =>
         item.title.toLowerCase().includes(this.searchText.toLowerCase())
       );
-      console.log(filteredResults);
-      return { data: filteredResults, total: filteredResults.length };
     }
-  }
-  //lọc question bằng method filter checkbox
-  filterCheckedQuestionBank(): GridDataResult | null {
-    console.log('Checked values:', this.checkedValues);
+
+    // Lọc theo checkedValues
     if (this.checkedValues && this.checkedValues.length > 0) {
-      const filteredItems = this.items.filter((item) =>
+      filteredItems = filteredItems.filter((item) =>
         this.checkedValues.includes(item.status.toString())
       );
-      return {
-        data: filteredItems,
-        total: filteredItems.length,
-      };
-    } else {
-      // If no items are checked, return null or an empty GridDataResult
-      return this.gridView; // or return { data: [], total: 0 };
     }
+
+    const startIndex = this.skip;
+    const endIndex = Math.min(startIndex + this.pageSize, filteredItems.length);
+    const dataForPage = filteredItems.slice(startIndex, endIndex);
+
+    return {
+      data: dataForPage,
+      total: filteredItems.length,
+    };
   }
   //kiem tra trang thai status
   checkStatus(status: QuestionStatus): void {
@@ -123,6 +151,7 @@ export class QuenstionbankComponent implements OnInit {
       this.currentFunctions = this.statusFunctionMap[status].map((name) => ({
         name,
       }));
+      console.log(this.selectedQuestion);
       console.log('Current Functions:', this.currentFunctions);
     } else {
       this.currentFunctions = [];
@@ -172,34 +201,41 @@ export class QuenstionbankComponent implements OnInit {
     }
   }
 
+  // function  các chức năng (thuưc hiện theo id)
   handleButton(selectedQuestion: QuestionBank | null, actionName: string) {
     if (selectedQuestion) {
       switch (actionName) {
         case 'Chỉnh sửa':
           selectedQuestion.status = QuestionStatus.Draft;
           this.closepopup();
-          console.log('Updated question status to Draft:', selectedQuestion);
+          console.log('Updated question status to :', selectedQuestion);
           break;
         case 'Gửi duyệt':
+          console.log('Updated question status to :', selectedQuestion);
           selectedQuestion.status = QuestionStatus.PendingApproval;
           this.closepopup();
 
           break;
         case 'Xóa câu hỏi':
           this.closepopup();
-          this.open();
+          this.openDeleteDialog(selectedQuestion);
+          console.log(selectedQuestion);
 
           break;
         case 'Phê duyệt':
+          console.log('Updated question status to :', selectedQuestion);
           selectedQuestion.status = QuestionStatus.Approved;
           this.closepopup();
+          console.log('Updated question status to :', selectedQuestion);
           console.log('Phê duyệt', selectedQuestion);
           break;
         case 'Trả về':
           this.closepopup();
+          console.log('Updated question status to :', selectedQuestion);
           selectedQuestion.status = QuestionStatus.Returned;
           break;
         case 'Ngưng áp dụng':
+          console.log('Updated question status to Draft:', selectedQuestion);
           selectedQuestion.status = QuestionStatus.Discontinued;
           this.closepopup();
           console.log('Phê duyệt', selectedQuestion);
@@ -214,20 +250,20 @@ export class QuenstionbankComponent implements OnInit {
   // xóa question khi nhấn xác nhận xóa từ dialog
   public close(status: string): void {
     console.log(`Dialog result: ${status}`);
-    this.dialogDelete = false;
     if (status == 'yes') {
       if (this.selectedQuestion) {
         this.deleteQuestion(this.selectedQuestion.id);
-        console.log(this.selectedQuestion.id);
+        // console.log(this.selectedQuestion.id);
       }
-    }
+    } else this.dialogDelete = false;
   }
-
+  // function xoa question
   deleteQuestion(questionId: number): void {
     console.log(this.gridView);
     const item = this.items.findIndex((item) => item.id == questionId);
     if (item !== -1) {
       this.items.splice(item, 1);
+      this.dialogDelete = false;
       console.log(this.items);
       this.loadItems();
     } else {
@@ -235,11 +271,17 @@ export class QuenstionbankComponent implements OnInit {
     }
   }
 
-  public open(): void {
+  // hien thi dialog delete
+  public openDeleteDialog(question: any): void {
     this.dialogDelete = true;
+    this.selectedQuestioDialog = question;
+    console.log('open the big dialog', this.selectedQuestioDialog);
     console.log('dialog  open');
   }
   public closepopup(): void {
     this.show = !this.show;
+  }
+  splitCamelCase(text: string): string {
+    return text.replace(/([A-Z])/g, ' $1').trim();
   }
 }
