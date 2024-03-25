@@ -1,5 +1,9 @@
-<div *ngFor="let item of navbarItems">
-  <div class="bg-white pl-2 flex h-14 row shadow-md gap-3 items-center">
+<div
+  *ngFor="let item of navbarItems"
+  [class.selected]="item === selectedItem"
+  (click)="onOpenSideBar(item)"
+>
+  <div class="bg-white mx-2 flex h-14 row shadow-md gap-3 items-center">
     <div class="flex h-full row shadow-md gap-3 items-center">
       <div class="border-r-2 px-10 border-r-stone-500">
         <button><p class="text-stone-500">-----------</p></button>
@@ -27,7 +31,7 @@
       <h4
         class="font-medium leading-10 text-green-700 border-b-2 border-b-green-700"
       >
-        <button (click)="onOpenSideBar(item)">
+        <button>
           {{ item.name | uppercase }}
         </button>
       </h4>

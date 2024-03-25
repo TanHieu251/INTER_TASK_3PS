@@ -202,10 +202,17 @@
       Đã chọn
     </div>
     <div *ngIf="currentFunctions.length > 0" class="function-list">
-      <div *ngFor="let func of currentFunctions" class="box function-item">
-        {{ func.name }}
-      </div>
+      <button
+        *ngFor="let func of currentFunctions"
+        (click)="handleFunctionPopup2(func)"
+      >
+        <div class="box function-item">
+          {{ func.name }}
+        </div>
+      </button>
     </div>
-    <div class="box boxClose">X</div>
+    <button (click)="closePopup2()">
+      <div class="box boxClose">X</div>
+    </button>
   </kendo-popup>
 </div>

@@ -8,22 +8,31 @@ import { NavbarItem } from '../../models/navBar.model';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  
   navbarItems: NavbarItem[] = [];
   @Output() openSidebar: EventEmitter<NavbarItem> =
     new EventEmitter<NavbarItem>();
 
+  // Biến để lưu trữ mục được chọn mặc định
+  selectedItem: NavbarItem | null = null;
+
   ngOnInit(): void {
     this.getAllNavbarItems();
   }
+
   constructor(private navbarService: NavBarService) {}
 
   getAllNavbarItems(): void {
     this.navbarService.getAllNavbarItems().subscribe((navbarItems) => {
-      this.navbarItems = navbarItems;
-      console.log(this.navbarItems);
+      // Lọc các mục có name là "Nhân Sự"
+      this.navbarItems = navbarItems.filter((item) => item.name === 'Nhân Sự');
+      // Kiểm tra nếu có ít nhất một mục được trả về
+      if (this.navbarItems.length > 0) {
+        // Gọi phương thức mở sidebar và truyền vào navbarItem
+        this.onOpenSideBar(this.navbarItems[0]);
+      }
     });
   }
+
   onOpenSideBar(navbarItem: NavbarItem): void {
     this.openSidebar.emit(navbarItem);
   }

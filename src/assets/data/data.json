@@ -5,6 +5,7 @@
     "sideBar": [
       {
         "id": 1,
+        "icon": "",
         "name": "Đánh giá nhân sự",
         "child": [{ "id": 1, "childName": "Ngân hàng câu hỏi" }]
       }

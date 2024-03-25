@@ -61,8 +61,8 @@ export class QuenstionbankComponent implements OnInit {
   @Input() selectable: SelectableSettings = {
     enabled: true,
     mode: 'multiple',
-    drag: false,
-    checkboxOnly: false,
+    drag: true,
+    checkboxOnly: true,
   };
 
   private items: QuestionBank[] = questionBanks;
@@ -285,6 +285,11 @@ export class QuenstionbankComponent implements OnInit {
       if (this.selectedQuestion) {
         this.deleteQuestion(this.selectedQuestion.id);
         // console.log(this.selectedQuestion.id);
+      } else if (this.selectedRowitem) {
+        this.selectedRowitem.forEach((item) => {
+          this.deleteQuestion(item.id);
+          this.showSecondPopup = false;
+        });
       }
     } else this.dialogDelete = false;
   }
@@ -297,6 +302,7 @@ export class QuenstionbankComponent implements OnInit {
       this.dialogDelete = false;
       console.log(this.items);
       this.loadItems();
+      return this.clearSelectedRows();
     } else {
       console.log('Error when delete item');
     }
@@ -310,7 +316,7 @@ export class QuenstionbankComponent implements OnInit {
     console.log('dialog  open');
   }
   public closepopup(): void {
-    this.show = !this.show;
+    this.show = false;
   }
 
   // togglePopupCheck(e: SelectionEvent) {
@@ -377,9 +383,72 @@ export class QuenstionbankComponent implements OnInit {
       this.currentFunctions = []; // Nếu không có câu hỏi nào được chọn, đặt danh sách chức năng là rỗng
     }
 
+    this.handleFunctionPopup2(this.selectedRowitem);
     this.count = this.selectedRowitem.length;
     this.anchor2 = this.anchor2;
     this.showSecondPopup = this.selectedRowitem.length > 0; // Hiển thị popup thứ hai nếu có ít nhất một câu hỏi được chọn
+  }
+  handleFunctionPopup2(func: any) {
+    if (this.selectedRowitem) {
+      this.selectedRowitem.forEach((item) => {
+        const status: QuestionStatus = item.status as QuestionStatus;
+        const functionsForStatus = this.statusFunctionMap[status];
+
+        // Kiểm tra xem chức năng được chọn có tồn tại trong danh sách chức năng của trạng thái không
+        if (functionsForStatus.includes(func.name)) {
+          switch (func.name) {
+            case 'Chỉnh sửa':
+              if (item.status) item.status = QuestionStatus.Draft;
+              this.showSecondPopup = false;
+              console.log('Updated question status to :', item);
+
+              break;
+            case 'Gửi duyệt':
+              item.status = QuestionStatus.PendingApproval;
+              this.showSecondPopup = false;
+              this.clearSelectedRows();
+              console.log('Updated question status to :', item);
+              break;
+            case 'Xóa câu hỏi':
+              this.showSecondPopup = false;
+              this.openDeleteDialog(item);
+              console.log('item of delete:', item);
+              break;
+            case 'Phê duyệt':
+              item.status = QuestionStatus.Approved;
+              this.showSecondPopup = false;
+              console.log('Updated question status to :', item);
+              console.log('Phê duyệt', item);
+              break;
+            case 'Trả về':
+              item.status = QuestionStatus.Returned;
+              this.showSecondPopup = false;
+              console.log('Updated question status to :', item);
+              break;
+            case 'Ngưng áp dụng':
+              this.showSecondPopup = false;
+              item.status = QuestionStatus.Discontinued;
+              console.log('Updated question status to Draft:', item);
+              console.log('Phê duyệt', item);
+              break;
+            default:
+              break;
+          }
+        } else {
+          console.log('Function not available for current status');
+        }
+      });
+      // console.log(this.selectedRowitem);
+    } else {
+      console.log('No question selected.');
+    }
+  }
+  clearSelectedRows() {
+    this.selectedRowitem = [];
+  }
+  closePopup2() {
+    this.clearSelectedRows();
+    this.showSecondPopup = false;
   }
 
   splitCamelCase(text: string): string {

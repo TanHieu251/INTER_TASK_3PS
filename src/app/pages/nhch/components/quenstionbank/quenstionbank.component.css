@@ -194,5 +194,10 @@
 }
 
 ::ng-deep .anchor2 .k-popup .boxClose {
-  color: black;
+  color: #cccccd;
+  border-left: 1px solid #e5e7eb;
+  width: 60px;
+  height: 60%;
+  font-size: 30px;
+  font-weight: 400;
 }

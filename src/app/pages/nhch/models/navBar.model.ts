@@ -8,6 +8,7 @@ export interface ChildItem {
 export interface SidebarItem {
   id: number;
   name: string;
+  icon: string;
   child: ChildItem[];
 }
 
