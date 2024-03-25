@@ -1,7 +1,14 @@
 import { Component, Input, OnInit, ViewChildren } from '@angular/core';
-import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
+import {
+  GridDataResult,
+  PageChangeEvent,
+  RowArgs,
+  SelectableSettings,
+  SelectionEvent,
+} from '@progress/kendo-angular-grid';
 import { questionBanks } from 'src/assets/data/question';
 import { QuestionBank, QuestionStatus } from '../../models/questionBank.model';
+import { Align } from '@progress/kendo-angular-popup';
 
 @Component({
   selector: 'app-quenstionbank',
@@ -26,16 +33,37 @@ export class QuenstionbankComponent implements OnInit {
   public pageSize = 3;
   public size = [75, 50, 25];
   public skip = 0;
+  // my selelction
   public mySelection: string[] = [];
+  // dialogDelete
   public dialogDelete = false;
+  // show popup
   public show: boolean = false;
+  public showSecondPopup: boolean = false;
+  // function popup
   public currentFunctions: { name: string }[] = [];
+  //select question
   public selectedQuestion: QuestionBank | null = null;
   public selectedQuestioDialog: any | null = null;
+  //selection key
+  public mySelectionKey = (context: RowArgs) => context.dataItem;
+  selectedRowitem = new Array<any>();
+  count: number = 0;
 
+  //popup
   @Input() anchor: any;
+  @Input() anchor2: any;
+  //search text
   @Input() searchText: string = '';
+  // checked filter
   @Input() checkedValues: string[] = [];
+
+  @Input() selectable: SelectableSettings = {
+    enabled: true,
+    mode: 'multiple',
+    drag: false,
+    checkboxOnly: false,
+  };
 
   private items: QuestionBank[] = questionBanks;
 
@@ -49,6 +77,8 @@ export class QuenstionbankComponent implements OnInit {
   ngOnInit(): void {
     this.currentFunctions = [];
   }
+  public anchorAlign: Align = { horizontal: 'left', vertical: 'top' };
+  public popupAlign: Align = { horizontal: 'right', vertical: 'top' };
 
   public pageChange(event: PageChangeEvent): void {
     this.skip = event.skip;
@@ -144,10 +174,11 @@ export class QuenstionbankComponent implements OnInit {
         break;
     }
   }
+  // Lấy danh sách chức năng tương ứng với trạng thái của câu hỏi hiện tại
+
   onQuestionSelect(question: QuestionBank): void {
     if (question && question.status) {
       const status: QuestionStatus = question.status as QuestionStatus;
-      // Lấy danh sách chức năng tương ứng với trạng thái của câu hỏi hiện tại
       this.currentFunctions = this.statusFunctionMap[status].map((name) => ({
         name,
       }));
@@ -281,6 +312,76 @@ export class QuenstionbankComponent implements OnInit {
   public closepopup(): void {
     this.show = !this.show;
   }
+
+  // togglePopupCheck(e: SelectionEvent) {
+  //   if (e.selectedRows?.length) {
+  //     e.selectedRows.forEach((row) => {
+  //       this.selectedRowitem.push(row.dataItem);
+  //     });
+
+  //     this.anchor2 = this.anchor2;
+  //     this.showSecondPopup = true;
+  //     console.log('count', this.count);
+  //   }
+  //   if (e.deselectedRows?.length) {
+  //     e.deselectedRows?.forEach((row) => {
+  //       var index = this.selectedRowitem.findIndex(
+  //         (item) => item.id == row.dataItem.id
+  //       );
+  //       this.selectedRowitem.splice(index, 1);
+
+  //       if (this.selectedRowitem.length == 0) {
+  //         // this.count = this.selectedRowitem.length;
+  //         console.log('count length', this.count);
+  //         this.anchor2 = this.anchor2;
+  //         this.showSecondPopup = false;
+  //       }
+  //     });
+  //   }
+  //   this.count = this.selectedRowitem.length;
+  //   console.log(this.selectedRowitem);
+  // }
+
+  togglePopupCheck(e: SelectionEvent) {
+    if (e.selectedRows?.length) {
+      e.selectedRows.forEach((row) => {
+        this.selectedRowitem.push(row.dataItem);
+      });
+    }
+
+    if (e.deselectedRows?.length) {
+      e.deselectedRows?.forEach((row) => {
+        var index = this.selectedRowitem.findIndex(
+          (item) => item.id == row.dataItem.id
+        );
+        this.selectedRowitem.splice(index, 1);
+      });
+    }
+
+    if (this.selectedRowitem.length > 0) {
+      // Tạo một mảng để chứa tất cả các chức năng từ các câu hỏi đã chọn
+      const allFunctions: string[] = [];
+      this.selectedRowitem.forEach((item) => {
+        // Lấy trạng thái của từng câu hỏi
+        const status: QuestionStatus = item.status as QuestionStatus;
+        // Lấy danh sách chức năng tương ứng với trạng thái của câu hỏi
+        const functionsForStatus = this.statusFunctionMap[status];
+        // Thêm các chức năng vào mảng allFunctions
+        allFunctions.push(...functionsForStatus);
+      });
+      // Loại bỏ các chức năng trùng lặp và sắp xếp chúng theo thứ tự từ điển
+      const uniqueFunctions = Array.from(new Set(allFunctions)).sort();
+      // Tạo một mảng mới chứa các đối tượng có thuộc tính 'name' từ các chuỗi uniqueFunctions
+      this.currentFunctions = uniqueFunctions.map((name) => ({ name }));
+    } else {
+      this.currentFunctions = []; // Nếu không có câu hỏi nào được chọn, đặt danh sách chức năng là rỗng
+    }
+
+    this.count = this.selectedRowitem.length;
+    this.anchor2 = this.anchor2;
+    this.showSecondPopup = this.selectedRowitem.length > 0; // Hiển thị popup thứ hai nếu có ít nhất một câu hỏi được chọn
+  }
+
   splitCamelCase(text: string): string {
     return text.replace(/([A-Z])/g, ' $1').trim();
   }

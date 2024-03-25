@@ -32,18 +32,27 @@
   font-size: 17px;
 }
 
-::ng-deep .k-grid .k-master-row .k-table-row .k-selected {
-  background: rgb(90, 143, 109);
+::ng-deep .myCustomGrid .k-grid .k-table-row.k-selected > .k-table-td {
+  background-color: rgb(90, 143, 109) !important;
+}
+
+::ng-deep .k-grid .k-selected td {
+  background-color: white;
 }
 
 ::ng-deep .myCustomGrid .k-grid-cell-inner .k-link {
   display: none;
 }
+::ng-deep .my-popup {
+  background-color: rgb(156, 163, 175);
+}
 
-::ng-deep .myCustomGrid kendo-popup {
+::ng-deep .kendo-openPopup button {
   position: relative;
-  left: 1008px;
-  top: -54px;
+}
+
+::ng-deep .my-popup .k-popup {
+  background: transparent;
 }
 /* ::ng-deep .my-popup {
   left: 1008px;
@@ -148,3 +157,42 @@
   text-align: center;
 }
 /*  */
+
+::ng-deep .anchor2 .k-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+}
+
+::ng-deep .anchor2 .k-popup .box {
+  width: 120px;
+  height: 80px;
+  color: white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+::ng-deep .anchor2 .k-popup .boxCount {
+  background-color: #15803d;
+  text-align: center;
+}
+
+::ng-deep .anchor2 .k-popup .function-list {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+::ng-deep .anchor2 .k-popup .function-item {
+  color: black;
+}
+
+::ng-deep .anchor2 .k-popup .boxClose {
+  color: black;
+}

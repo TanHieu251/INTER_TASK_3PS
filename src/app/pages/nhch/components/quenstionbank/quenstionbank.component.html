@@ -8,19 +8,26 @@
     (pageChange)="pageChange($event)"
     kendoGridSelectBy="id"
     [(selectedKeys)]="mySelection"
+    [kendoGridSelectBy]="mySelectionKey"
     [style.height.px]="650"
     class="myCustomGrid"
+    [selectable]="selectable"
+    (selectionChange)="togglePopupCheck($event)"
   >
     <kendo-grid-column-group [columnMenu]="false">
       <kendo-grid-checkbox-column
         field="selected"
         [width]="30"
-        [headerClass]="{ 'text-center': true }"
-        [class]="{ 'text-center': true }"
-        [resizable]="false"
-        [columnMenu]="false"
         [showSelectAll]="true"
-      ></kendo-grid-checkbox-column>
+      >
+        <ng-template let-rowIndex="rowIndex">
+          <input
+            [kendoGridSelectionCheckbox]="rowIndex"
+            type="checkbox"
+            #anchor2
+          />
+        </ng-template>
+      </kendo-grid-checkbox-column>
 
       <kendo-grid-column
         [style]="{ 'text-align': 'left' }"
@@ -154,7 +161,7 @@
         lại
       </p>
     </div>
-    <kendo-dialog-actions class="buttonDialog"> 
+    <kendo-dialog-actions class="buttonDialog">
       <button class="khongxoa" kendoButton (click)="close('no')">
         KHÔNG XÓA
       </button>
@@ -166,10 +173,12 @@
   <kendo-popup
     [anchor]="anchor"
     (anchorViewportLeave)="show = false"
+    [anchorAlign]="anchorAlign"
+    [popupAlign]="popupAlign"
     *ngIf="show"
     class="my-popup"
   >
-    <div class="bg-gray-400 text-white font-normal w-[150px]">
+    <div class="text-white font-normal w-[150px]">
       <button
         *ngFor="let func of currentFunctions"
         class="w-full h-[50px] text-white"
@@ -178,5 +187,25 @@
         {{ func.name }}
       </button>
     </div>
+  </kendo-popup>
+
+  <kendo-popup
+    [anchor]="anchor2"
+    (anchorViewportLeave)="showSecondPopup = false"
+    [anchorAlign]="anchorAlign"
+    [popupAlign]="popupAlign"
+    *ngIf="showSecondPopup"
+    class="anchor2"
+  >
+    <div class="box boxCount">
+      {{ count }} <br />
+      Đã chọn
+    </div>
+    <div *ngIf="currentFunctions.length > 0" class="function-list">
+      <div *ngFor="let func of currentFunctions" class="box function-item">
+        {{ func.name }}
+      </div>
+    </div>
+    <div class="box boxClose">X</div>
   </kendo-popup>
 </div>
