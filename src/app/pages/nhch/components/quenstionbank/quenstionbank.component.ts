@@ -283,28 +283,54 @@ export class QuenstionbankComponent implements OnInit {
     console.log(`Dialog result: ${status}`);
     if (status == 'yes') {
       if (this.selectedQuestion) {
+        console.log('popup1');
         this.deleteQuestion(this.selectedQuestion.id);
         // console.log(this.selectedQuestion.id);
       } else if (this.selectedRowitem) {
         this.selectedRowitem.forEach((item) => {
           this.deleteQuestion(item.id);
+          console.log('popup2');
           this.showSecondPopup = false;
         });
       }
     } else this.dialogDelete = false;
   }
   // function xoa question
+  // deleteQuestion(questionId: number): void {
+  //   console.log(this.gridView);
+  //   const item = this.items.findIndex((item) => item.id == questionId);
+  //   if (item !== -1) {
+  //     this.items.splice(item, 1);
+  //     this.dialogDelete = false;
+  //     console.log(this.items);
+  //     this.loadItems();
+  //     return this.clearSelectedRows();
+  //   } else {
+  //     console.log('Error when delete item');
+  //   }
+  // }
   deleteQuestion(questionId: number): void {
     console.log(this.gridView);
-    const item = this.items.findIndex((item) => item.id == questionId);
-    if (item !== -1) {
-      this.items.splice(item, 1);
+    const itemIndex = this.items.findIndex((item) => item.id === questionId);
+
+    if (itemIndex !== -1) {
+      // Check if the item's status is "soan_thao" (Draft)
+      if (this.items[itemIndex].status === QuestionStatus.Draft) {
+
+        this.items.splice(itemIndex, 1);
+        console.log('Question deleted successfully.');
+      } else {
+        console.log(
+          'Cannot delete a question that is not in "soan_thao" (Draft) status.'
+        );
+      }
+
       this.dialogDelete = false;
       console.log(this.items);
       this.loadItems();
-      return this.clearSelectedRows();
+      this.clearSelectedRows();
     } else {
-      console.log('Error when delete item');
+      console.log('Question not found.');
     }
   }
 
