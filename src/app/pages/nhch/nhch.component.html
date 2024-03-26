@@ -1,7 +1,10 @@
 <div class="flex w-full bg-gray-200">
   <app-sidebar [selectedNavbarItem]="selectedNavbarItem"></app-sidebar>
-  <div class="grow">
-    <app-navbar (openSidebar)="onNavbarItemClicked($event)"></app-navbar>
+  <div class="">
+    <app-navbar
+      class=""
+      (openSidebar)="onNavbarItemClicked($event)"
+    ></app-navbar>
     <app-header-checkbox
       (filterStatus)="onChecked($event)"
     ></app-header-checkbox>
@@ -9,6 +12,7 @@
       (filterReset)="onResetFilter()"
       (searchValueChanged)="onSearch($event)"
     ></app-filter>
+
     <app-quenstionbank
       [searchText]="searchText"
       [checkedValues]="checkedValues"

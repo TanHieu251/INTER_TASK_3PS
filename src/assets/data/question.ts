@@ -16,6 +16,7 @@ export const questionBanks = [
     group: 'Thương hiệu, văn hóa cty',
     time: 30,
     code: 'Q.001',
+
     status: 'soan_thao',
   },
   {

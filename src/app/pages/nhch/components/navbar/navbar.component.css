@@ -1,0 +1,17 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px; /* Đảm bảo padding đủ cho phần tử */
+  /* position: fixed; */
+}
+
+.navbar-item {
+  flex: 1; /* Cho phần tử mở rộng để lấp đầy không gian */
+  max-width: calc(100vw - 223px); /* Giới hạn kích thước tối đa của phần tử */
+}
+
+.nav-button {
+  font-size: 1.2em; /* Đảm bảo kích thước font đủ lớn */
+  padding: 10px 15px; /* Đảm bảo padding đủ cho phần tử */
+}

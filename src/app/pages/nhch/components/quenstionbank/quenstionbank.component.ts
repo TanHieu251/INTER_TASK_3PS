@@ -9,6 +9,7 @@ import {
 import { questionBanks } from 'src/assets/data/question';
 import { QuestionBank, QuestionStatus } from '../../models/questionBank.model';
 import { Align } from '@progress/kendo-angular-popup';
+import { NotificationService } from '@progress/kendo-angular-notification';
 
 @Component({
   selector: 'app-quenstionbank',
@@ -35,6 +36,7 @@ export class QuenstionbankComponent implements OnInit {
   public skip = 0;
   // my selelction
   public mySelection: string[] = [];
+
   // dialogDelete
   public dialogDelete = false;
   // show popup
@@ -71,7 +73,7 @@ export class QuenstionbankComponent implements OnInit {
     this.anchor = el;
     this.show = !this.show;
   }
-  constructor() {
+  constructor(private notification: NotificationService) {
     this.loadItems();
   }
   ngOnInit(): void {
@@ -243,7 +245,18 @@ export class QuenstionbankComponent implements OnInit {
           break;
         case 'Gửi duyệt':
           console.log('Updated question status to :', selectedQuestion);
-          selectedQuestion.status = QuestionStatus.PendingApproval;
+          if (!selectedQuestion.code || !selectedQuestion.typeQuestion) {
+            this.showNotification(
+              `Không thể gửi duyệt ${selectedQuestion.title}: Thiếu mã hoặc loại câu hỏi`,
+              'warning'
+            );
+          } else {
+            selectedQuestion.status = QuestionStatus.PendingApproval;
+            this.showNotification(
+              `Gửi duyệt thành công ${selectedQuestion.title}`,
+              'success'
+            );
+          }
           this.closepopup();
 
           break;
@@ -255,6 +268,7 @@ export class QuenstionbankComponent implements OnInit {
           break;
         case 'Phê duyệt':
           console.log('Updated question status to :', selectedQuestion);
+          this.showNotification('Phê duyệt thành công', 'success');
           selectedQuestion.status = QuestionStatus.Approved;
           this.closepopup();
           console.log('Updated question status to :', selectedQuestion);
@@ -262,14 +276,15 @@ export class QuenstionbankComponent implements OnInit {
           break;
         case 'Trả về':
           this.closepopup();
+          this.showNotification('Trả về thành công', 'success');
           console.log('Updated question status to :', selectedQuestion);
           selectedQuestion.status = QuestionStatus.Returned;
           break;
         case 'Ngưng áp dụng':
+          this.showNotification('Ngưng áp dụng', 'success');
           console.log('Updated question status to Draft:', selectedQuestion);
           selectedQuestion.status = QuestionStatus.Discontinued;
           this.closepopup();
-          console.log('Phê duyệt', selectedQuestion);
           break;
         default:
       }
@@ -316,12 +331,16 @@ export class QuenstionbankComponent implements OnInit {
     if (itemIndex !== -1) {
       // Check if the item's status is "soan_thao" (Draft)
       if (this.items[itemIndex].status === QuestionStatus.Draft) {
-
         this.items.splice(itemIndex, 1);
+        this.showNotification(
+          `Xoá thành công ${this.items[itemIndex].title}`,
+          'success'
+        );
         console.log('Question deleted successfully.');
       } else {
-        console.log(
-          'Cannot delete a question that is not in "soan_thao" (Draft) status.'
+        this.showNotification(
+          `Xoá không thành công ${this.items[itemIndex].title}`,
+          'warning'
         );
       }
 
@@ -430,7 +449,19 @@ export class QuenstionbankComponent implements OnInit {
 
               break;
             case 'Gửi duyệt':
-              item.status = QuestionStatus.PendingApproval;
+              if (!item.code || !item.typeQuestion) {
+                this.showNotification(
+                  `Không thể gửi duyệt ${item.title}: Thiếu mã hoặc loại câu hỏi`,
+                  'warning'
+                );
+              } else {
+                item.status = QuestionStatus.PendingApproval;
+                this.showNotification(
+                  `Gửi duyệt thành công ${item.title}`,
+                  'success'
+                );
+              }
+
               this.showSecondPopup = false;
               this.clearSelectedRows();
               console.log('Updated question status to :', item);
@@ -443,17 +474,19 @@ export class QuenstionbankComponent implements OnInit {
             case 'Phê duyệt':
               item.status = QuestionStatus.Approved;
               this.showSecondPopup = false;
-              console.log('Updated question status to :', item);
-              console.log('Phê duyệt', item);
+              this.showNotification('Phê duyệt thành công', 'success');
               break;
             case 'Trả về':
               item.status = QuestionStatus.Returned;
               this.showSecondPopup = false;
+              this.showNotification('Trả về thành công ', 'success');
+
               console.log('Updated question status to :', item);
               break;
             case 'Ngưng áp dụng':
               this.showSecondPopup = false;
               item.status = QuestionStatus.Discontinued;
+              this.showNotification('Ngưng áp dụng thành công', 'success');
               console.log('Updated question status to Draft:', item);
               console.log('Phê duyệt', item);
               break;
@@ -479,5 +512,20 @@ export class QuenstionbankComponent implements OnInit {
 
   splitCamelCase(text: string): string {
     return text.replace(/([A-Z])/g, ' $1').trim();
+  }
+
+  //show notification
+  showNotification(
+    message: string,
+    type: 'info' | 'none' | 'success' | 'warning' | 'error' | undefined = 'info'
+  ): void {
+    this.notification.show({
+      content: message,
+      animation: { type: 'fade', duration: 400 },
+      position: { horizontal: 'left', vertical: 'bottom' },
+      type: { style: type, icon: true },
+      hideAfter: 100,
+      closable: true,
+    });
   }
 }
