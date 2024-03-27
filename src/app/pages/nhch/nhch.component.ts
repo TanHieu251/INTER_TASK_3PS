@@ -4,6 +4,7 @@ import { NavbarItem } from './models/navBar.model';
 @Component({
   selector: 'app-nhch',
   templateUrl: './nhch.component.html',
+  styleUrls: ['nhch.component.css'],
 })
 export class NhchComponent {
   selectedNavbarItem: NavbarItem | null = null;

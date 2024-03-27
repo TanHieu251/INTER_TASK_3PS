@@ -11,23 +11,49 @@ import { QuestionBank, QuestionStatus } from '../../models/questionBank.model';
 import { Align } from '@progress/kendo-angular-popup';
 import { NotificationService } from '@progress/kendo-angular-notification';
 
+import {
+  eyeIcon,
+  pencilIcon,
+  redoIcon,
+  trashIcon,
+  checkOutlineIcon,
+  undoIcon,
+  minusCircleIcon,
+  SVGIcon,
+} from '@progress/kendo-svg-icons';
+
 @Component({
   selector: 'app-quenstionbank',
   templateUrl: './quenstionbank.component.html',
   styleUrls: ['./quenstionbank.component.css'],
 })
 export class QuenstionbankComponent implements OnInit {
-  statusFunctionMap: { [key in QuestionStatus]: string[] } = {
+  statusFunctionMap: {
+    [key in QuestionStatus]: { name: string; icon: string }[];
+  } = {
     [QuestionStatus.Draft]: [
-      'Xem chi tiết',
-      'Chỉnh sửa',
-      'Gửi duyệt',
-      'Xóa câu hỏi',
+      { name: 'Xem chi tiết', icon: 'fa-regular fa-eye' },
+      { name: 'Chỉnh sửa', icon: 'fa-solid fa-pen' },
+      { name: 'Gửi duyệt', icon: 'fa-solid fa-share' },
+      { name: 'Xóa câu hỏi', icon: 'fa-regular fa-trash-can' },
     ],
-    [QuestionStatus.PendingApproval]: ['Phê duyệt', 'Trả về'],
-    [QuestionStatus.Approved]: ['Xem chi tiết', 'Ngưng áp dụng'],
-    [QuestionStatus.Discontinued]: ['Xem chi tiết', 'Phê duyệt', 'Trả về'],
-    [QuestionStatus.Returned]: ['Chỉnh sửa', 'Gửi duyệt'],
+    [QuestionStatus.PendingApproval]: [
+      { name: 'Phê duyệt', icon: 'fa-regular fa-circle-check' },
+      { name: 'Trả về', icon: 'fas fa-share transform' },
+    ],
+    [QuestionStatus.Approved]: [
+      { name: 'Xem chi tiết', icon: 'fa-regular fa-eye' },
+      { name: 'Ngưng áp dụng', icon: 'fa-solid fa-ban' },
+    ],
+    [QuestionStatus.Discontinued]: [
+      { name: 'Xem chi tiết', icon: 'fa-regular fa-eye' },
+      { name: 'Phê duyệt', icon: 'fa-regular fa-circle-check' },
+      { name: 'Trả về', icon: 'fas fa-share transform rotate-180' },
+    ],
+    [QuestionStatus.Returned]: [
+      { name: 'Chỉnh sửa', icon: 'fa-solid fa-pen' },
+      { name: 'Gửi duyệt', icon: 'fa-solid fa-share' },
+    ],
   };
 
   public gridView: GridDataResult | null = null;
@@ -43,7 +69,7 @@ export class QuenstionbankComponent implements OnInit {
   public show: boolean = false;
   public showSecondPopup: boolean = false;
   // function popup
-  public currentFunctions: { name: string }[] = [];
+  public currentFunctions: { name: string; icon: string }[] = [];
   //select question
   public selectedQuestion: QuestionBank | null = null;
   public selectedQuestioDialog: any | null = null;
@@ -181,9 +207,9 @@ export class QuenstionbankComponent implements OnInit {
   onQuestionSelect(question: QuestionBank): void {
     if (question && question.status) {
       const status: QuestionStatus = question.status as QuestionStatus;
-      this.currentFunctions = this.statusFunctionMap[status].map((name) => ({
-        name,
-      }));
+      this.currentFunctions = this.statusFunctionMap[status].map(
+        ({ name, icon }) => ({ name, icon })
+      );
       console.log(this.selectedQuestion);
       console.log('Current Functions:', this.currentFunctions);
     } else {
@@ -392,7 +418,6 @@ export class QuenstionbankComponent implements OnInit {
   //   this.count = this.selectedRowitem.length;
   //   console.log(this.selectedRowitem);
   // }
-
   togglePopupCheck(e: SelectionEvent) {
     if (e.selectedRows?.length) {
       e.selectedRows.forEach((row) => {
@@ -402,106 +427,117 @@ export class QuenstionbankComponent implements OnInit {
 
     if (e.deselectedRows?.length) {
       e.deselectedRows?.forEach((row) => {
-        var index = this.selectedRowitem.findIndex(
+        const index = this.selectedRowitem.findIndex(
           (item) => item.id == row.dataItem.id
         );
-        this.selectedRowitem.splice(index, 1);
+        if (index !== -1) {
+          this.selectedRowitem.splice(index, 1);
+        }
       });
     }
 
     if (this.selectedRowitem.length > 0) {
-      // Tạo một mảng để chứa tất cả các chức năng từ các câu hỏi đã chọn
-      const allFunctions: string[] = [];
+      const allFunctions: { name: string; icon: string }[] = [];
       this.selectedRowitem.forEach((item) => {
-        // Lấy trạng thái của từng câu hỏi
         const status: QuestionStatus = item.status as QuestionStatus;
-        // Lấy danh sách chức năng tương ứng với trạng thái của câu hỏi
-        const functionsForStatus = this.statusFunctionMap[status];
-        // Thêm các chức năng vào mảng allFunctions
-        allFunctions.push(...functionsForStatus);
+        if (status in this.statusFunctionMap) {
+          // Check if status is a valid key
+          const functionsForStatus = this.statusFunctionMap[status];
+          allFunctions.push(...functionsForStatus); // Push all functions for each item
+        } else {
+          console.error(`Invalid status: ${status}`);
+        }
       });
-      // Loại bỏ các chức năng trùng lặp và sắp xếp chúng theo thứ tự từ điển
-      const uniqueFunctions = Array.from(new Set(allFunctions)).sort();
-      // Tạo một mảng mới chứa các đối tượng có thuộc tính 'name' từ các chuỗi uniqueFunctions
-      this.currentFunctions = uniqueFunctions.map((name) => ({ name }));
+      const uniqueFunctions = Array.from(
+        new Set(allFunctions.map((func) => func.name))
+      ).sort();
+      this.currentFunctions = uniqueFunctions.map((name, icon) => ({
+        name,
+        icon: allFunctions.find((func) => func.name === name)?.icon || '',
+      }));
     } else {
-      this.currentFunctions = []; // Nếu không có câu hỏi nào được chọn, đặt danh sách chức năng là rỗng
+      this.currentFunctions = [];
     }
 
     this.handleFunctionPopup2(this.selectedRowitem);
     this.count = this.selectedRowitem.length;
     this.anchor2 = this.anchor2;
-    this.showSecondPopup = this.selectedRowitem.length > 0; // Hiển thị popup thứ hai nếu có ít nhất một câu hỏi được chọn
+    this.showSecondPopup = this.selectedRowitem.length > 0;
   }
+
   handleFunctionPopup2(func: any) {
-    if (this.selectedRowitem) {
-      this.selectedRowitem.forEach((item) => {
-        const status: QuestionStatus = item.status as QuestionStatus;
-        const functionsForStatus = this.statusFunctionMap[status];
-
-        // Kiểm tra xem chức năng được chọn có tồn tại trong danh sách chức năng của trạng thái không
-        if (functionsForStatus.includes(func.name)) {
-          switch (func.name) {
-            case 'Chỉnh sửa':
-              if (item.status) item.status = QuestionStatus.Draft;
-              this.showSecondPopup = false;
-              console.log('Updated question status to :', item);
-
-              break;
-            case 'Gửi duyệt':
-              if (!item.code || !item.typeQuestion) {
-                this.showNotification(
-                  `Không thể gửi duyệt ${item.title}: Thiếu mã hoặc loại câu hỏi`,
-                  'warning'
-                );
-              } else {
-                item.status = QuestionStatus.PendingApproval;
-                this.showNotification(
-                  `Gửi duyệt thành công ${item.title}`,
-                  'success'
-                );
-              }
-
-              this.showSecondPopup = false;
-              this.clearSelectedRows();
-              console.log('Updated question status to :', item);
-              break;
-            case 'Xóa câu hỏi':
-              this.showSecondPopup = false;
-              this.openDeleteDialog(item);
-              console.log('item of delete:', item);
-              break;
-            case 'Phê duyệt':
-              item.status = QuestionStatus.Approved;
-              this.showSecondPopup = false;
-              this.showNotification('Phê duyệt thành công', 'success');
-              break;
-            case 'Trả về':
-              item.status = QuestionStatus.Returned;
-              this.showSecondPopup = false;
-              this.showNotification('Trả về thành công ', 'success');
-
-              console.log('Updated question status to :', item);
-              break;
-            case 'Ngưng áp dụng':
-              this.showSecondPopup = false;
-              item.status = QuestionStatus.Discontinued;
-              this.showNotification('Ngưng áp dụng thành công', 'success');
-              console.log('Updated question status to Draft:', item);
-              console.log('Phê duyệt', item);
-              break;
-            default:
-              break;
-          }
-        } else {
-          console.log('Function not available for current status');
-        }
-      });
-      // console.log(this.selectedRowitem);
-    } else {
+    // Check if any questions are selected
+    if (!this.selectedRowitem || this.selectedRowitem.length === 0) {
       console.log('No question selected.');
+      return;
     }
+
+    this.selectedRowitem.forEach((item) => {
+      const status: QuestionStatus = item.status as QuestionStatus;
+
+      const functionsForStatus = this.statusFunctionMap[status]?.map(
+        ({ name }) => name
+      );
+
+      console.log('functionsForStatus:', functionsForStatus);
+      console.log('func check:', func.name);
+
+      // Check if the function is allowed for this question's status
+      if (functionsForStatus?.includes(func.name)) {
+        switch (func.name) {
+          case 'Chỉnh sửa':
+            if (item.status) {
+              item.status = QuestionStatus.Draft;
+              console.log('Updated question status to Draft:', item);
+            }
+            break;
+          case 'Gửi duyệt':
+            if (!item.code || !item.typeQuestion) {
+              this.showNotification(
+                `Không thể gửi duyệt ${item.title}: Thiếu mã hoặc loại câu hỏi`,
+                'warning'
+              );
+            } else {
+              item.status = QuestionStatus.PendingApproval;
+              this.showNotification(
+                `Gửi duyệt thành công ${item.title}`,
+                'success'
+              );
+              this.clearSelectedRows();
+            }
+            console.log('Updated question status to PendingApproval:', item);
+            break;
+          case 'Xóa câu hỏi':
+            this.deleteQuestion(item.id);
+            break;
+          case 'Phê duyệt':
+            item.status = QuestionStatus.Approved;
+            this.showNotification('Phê duyệt thành công', 'success');
+            this.clearSelectedRows();
+            console.log('Updated question status to Approved:', item);
+            break;
+          case 'Trả về':
+            item.status = QuestionStatus.Returned;
+            this.showNotification('Trả về thành công', 'success');
+            this.clearSelectedRows();
+            console.log('Updated question status to Returned:', item);
+            break;
+          case 'Ngưng áp dụng':
+            item.status = QuestionStatus.Discontinued;
+            this.showNotification('Ngưng áp dụng thành công', 'success');
+            this.clearSelectedRows();
+            console.log('Updated question status to Discontinued:', item);
+            break;
+          default:
+            break;
+        }
+      } else {
+        console.log('Function not available for current status');
+        console.log('funcName:', func.name);
+      }
+    });
   }
+
   clearSelectedRows() {
     this.selectedRowitem = [];
   }

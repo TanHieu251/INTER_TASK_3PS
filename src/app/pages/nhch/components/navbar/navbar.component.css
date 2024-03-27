@@ -2,8 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px; /* Đảm bảo padding đủ cho phần tử */
-  /* position: fixed; */
+  padding: 0 3px; /* Đảm bảo padding đủ cho phần tử */
+  position: fixed;
+  flex-shrink: 0; /* Ngăn chặn navbar mở rộng ra ngoài giới hạn chiều ngang của màn hình */
+  width: 100vw;
+  z-index: 100;
 }
 
 .navbar-item {

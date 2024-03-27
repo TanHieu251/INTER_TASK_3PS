@@ -1,4 +1,4 @@
-<div class="mx-6">
+<div class="questionBank">
   <kendo-grid
     [data]="gridView"
     [data]="combineFilters()"
@@ -74,7 +74,7 @@
       >
       </kendo-grid-column>
       <kendo-grid-column
-        [headerStyle]="{ 'text-align': 'center' }"
+        [headerStyle]="{ 'text-align': 'center', 'justify-content': 'center' }"
         [style]="{ 'text-align': 'center' }"
         field="time"
         title="Thời gian làm "
@@ -85,7 +85,7 @@
         </ng-template>
       </kendo-grid-column>
       <kendo-grid-column
-        [headerStyle]="{ 'text-align': 'center' }"
+        [headerStyle]="{ 'text-align': 'center', 'justify-content': 'center' }"
         [style]="{ 'text-align': 'center', 'font-weight': '500' }"
         field="status"
         title="Tình trạng"
@@ -102,7 +102,7 @@
         class="kendo-openPopup"
         [style]="{
           'display':'flex',
-          'border-left': '1px solid ',
+          'border-left': '1px solid #e5e7eb ',
           'text-align ': 'center',
           'justify-content': 'center',
           
@@ -110,7 +110,9 @@
       >
         <ng-template kendoGridCellTemplate let-dataItem>
           <!-- <button #anchor (click)="checkStatus(dataItem.status)">...</button> -->
-          <div class="w-[40px] h-[58px] items-center flex justify-center">
+          <div
+            class="open-popup1 w-[40px] h-[58px] items-center flex justify-center"
+          >
             <button
               class="text-black hover:bg-gray-400 hover:text-white px-3 py-1"
               kendoButton
@@ -176,6 +178,7 @@
     [anchorAlign]="anchorAlign"
     [popupAlign]="popupAlign"
     *ngIf="show"
+    [animate]="false"
     class="my-popup"
   >
     <div class="text-white font-normal w-[150px]">
@@ -184,7 +187,10 @@
         class="w-full h-[50px] text-white"
         (click)="handleButton(selectedQuestion, func.name)"
       >
-        {{ func.name }}
+        <div class="gap-3">
+          <i class="{{ func.icon }}  "></i>
+          <span>{{ func.name }}</span>
+        </div>
       </button>
     </div>
   </kendo-popup>
@@ -195,10 +201,11 @@
     [anchorAlign]="anchorAlign"
     [popupAlign]="popupAlign"
     *ngIf="showSecondPopup"
+    [animate]="false"
     class="anchor2"
   >
     <div class="box boxCount">
-      {{ count }} <br />
+      <span class="countNumber">{{ count }}</span> <br />
       Đã chọn
     </div>
     <div *ngIf="currentFunctions.length > 0" class="function-list">
@@ -206,8 +213,10 @@
         *ngFor="let func of currentFunctions"
         (click)="handleFunctionPopup2(func)"
       >
-        <div class="box function-item">
-          {{ func.name }}
+        <div class="box boxFunc function-item">
+          <i class="{{ func.icon }}  text-gray-400 "></i>
+          <br />
+          <span>{{ func.name }}</span>
         </div>
       </button>
     </div>
