@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
   ViewChildren,
+  ChangeDetectorRef,
 } from '@angular/core';
 import {
   GridDataResult,
@@ -81,6 +82,7 @@ export class QuenstionbankComponent implements OnInit {
   //select question
   public selectedQuestion: QuestionBank | null = null;
   public selectedQuestioDialog: any | null = null;
+  isFilterApplied: boolean = false;
 
   //selection key
   public mySelectionKey = (context: RowArgs) => context.dataItem;
@@ -108,8 +110,15 @@ export class QuenstionbankComponent implements OnInit {
     this.anchor = el;
     this.show = !this.show;
   }
-  constructor(private notification: NotificationService) {
+  constructor(
+    private notification: NotificationService,
+    private ChangeDetectorRef: ChangeDetectorRef
+  ) {
     this.loadItems();
+  }
+
+  ngAfterContentChecked(): void {
+    this.ChangeDetectorRef.detectChanges();
   }
   ngOnInit(): void {
     this.currentFunctions = [];
@@ -117,10 +126,18 @@ export class QuenstionbankComponent implements OnInit {
   public anchorAlign: Align = { horizontal: 'left', vertical: 'top' };
   public popupAlign: Align = { horizontal: 'right', vertical: 'top' };
 
+  //
   public pageChange(event: PageChangeEvent): void {
     this.skip = event.skip;
     this.pageSize = event.take;
-    this.loadItems();
+    // // Nếu bộ lọc đã được áp dụng, thì thiết lập lại skip về 0 để quay lại trang đầu tiên
+    if (this.isFilterApplied) {
+      this.skip = 0;
+      this.skip = event.skip;
+
+      this.isFilterApplied = false;
+      this.loadItems();
+    }
   }
 
   public loadItems(): void {
@@ -176,7 +193,9 @@ export class QuenstionbankComponent implements OnInit {
       filteredItems = filteredItems.filter((item) =>
         this.checkedValues.includes(item.status.toString())
       );
+      // Gán skip về 0 khi áp dụng filter checkbox
     }
+    this.isFilterApplied = true;
 
     const startIndex = this.skip;
     const endIndex = Math.min(startIndex + this.pageSize, filteredItems.length);
@@ -187,6 +206,7 @@ export class QuenstionbankComponent implements OnInit {
       total: filteredItems.length,
     };
   }
+
   //kiem tra trang thai status
   checkStatus(status: QuestionStatus): void {
     switch (status) {
@@ -434,7 +454,7 @@ export class QuenstionbankComponent implements OnInit {
   //   console.log(this.selectedRowitem);
   // }
   togglePopupCheck(e: SelectionEvent) {
-    this.clearSelectedRows();
+    // this.clearSelectedRows();
     if (e.selectedRows?.length) {
       e.selectedRows.forEach((row) => {
         this.selectedRowitem.push(row.dataItem);
@@ -462,6 +482,7 @@ export class QuenstionbankComponent implements OnInit {
         const status: QuestionStatus = item.status as QuestionStatus;
         if (status in this.statusFunctionMap) {
           // Check if status is a valid key
+
           const functionsForStatus = this.statusFunctionMap[status];
           allFunctions.push(...functionsForStatus); // Push all functions for each item
         } else {
@@ -479,11 +500,12 @@ export class QuenstionbankComponent implements OnInit {
       this.currentFunctions = [];
       this.showSecondPopup = false;
       this.show = false;
-      this.clearSelectedRows();
+      this.popup2Shown.emit(false);
     }
 
     this.handleFunctionPopup2(this.selectedRowitem);
     this.count = this.selectedRowitem.length;
+    console.log('Count:', this.count);
     this.anchor2 = this.anchor2;
     this.showSecondPopup = this.selectedRowitem.length > 0;
   }
@@ -594,7 +616,7 @@ export class QuenstionbankComponent implements OnInit {
       animation: { type: 'fade', duration: 400 },
       position: { horizontal: 'left', vertical: 'bottom' },
       type: { style: type, icon: true },
-      hideAfter: 100,
+      hideAfter: 0,
       closable: true,
     });
   }

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'app-header-checkbox',
@@ -12,7 +19,8 @@ export class HeaderCheckboxComponent {
   @Input() isCheckboxChecked: boolean = false;
   @Input() disabled: boolean = false;
   @Input() showSecondPopup: boolean = false;
-
+  @ViewChild('checkbox')
+  checkbox!: ElementRef;
   ischecked: boolean = false;
 
   //lay trang thai filter tu checkbox
@@ -21,6 +29,7 @@ export class HeaderCheckboxComponent {
     const checkboxes = document.querySelectorAll(
       'input[type=checkbox]:checked'
     );
+
     checkboxes.forEach((checkbox: any) => {
       selectedValues.push(checkbox.value);
     });

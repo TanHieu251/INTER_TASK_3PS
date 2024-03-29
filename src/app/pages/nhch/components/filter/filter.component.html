@@ -35,9 +35,29 @@
     </div>
     <div class="flex gap-2">
       <div class="flex">
+        <button
+          class="w-8 bg-white h-8 items-center relative left-9 top-1 text-[#9da3af]"
+        >
+          <svg
+            class="w-6 h-6 items-center bg-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-width="2"
+              d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+            />
+          </svg>
+        </button>
         <input
           type="text"
-          placeholder=" &#xF002; Tìm theo mã và câu hỏi"
+          placeholder=" Tìm theo mã và câu hỏi"
           class="inputSearch w-[500px] py-2 rounded-md focus:outline-none"
           (keydown.enter)="onSearch()"
           [(ngModel)]="searchText"

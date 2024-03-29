@@ -9,9 +9,10 @@
     kendoGridSelectBy="id"
     [(selectedKeys)]="mySelection"
     [kendoGridSelectBy]="mySelectionKey"
-    [style.height.px]="650"
+    [style.height.vh]="74"
     class="myCustomGrid"
     [selectable]="selectable"
+    scrollable="scrollable"
     (selectionChange)="togglePopupCheck($event)"
   >
     <kendo-grid-column-group [columnMenu]="false">
@@ -135,7 +136,7 @@
 
       <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
       <kendo-pager-numeric-buttons
-        [buttonCount]="2"
+        [buttonCount]="4"
       ></kendo-pager-numeric-buttons>
       <kendo-pager-next-buttons></kendo-pager-next-buttons>
 
@@ -143,6 +144,7 @@
       ><kendo-grid-messages [pagerItemsPerPage]="''"></kendo-grid-messages>
     </ng-template>
   </kendo-grid>
+
   <kendo-dialog
     class="myDialog"
     title="Xóa câu hỏi"

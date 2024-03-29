@@ -3,7 +3,7 @@
 }
 
 .checked {
-  border: 2px solid #16a34a;
+  outline: 1px solid #16a34a;
 }
 * {
   box-sizing: border-box;
@@ -12,3 +12,9 @@ body {
   background-color: red;
 }
 
+input[type="checkbox"]:checked li {
+  outline: 1px solid #16a34a;
+}
+Trong file CSS .selected {
+  border: 2px solid blue; /* Hoặc bất kỳ style nào bạn muốn áp dụng */
+}

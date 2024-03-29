@@ -274,6 +274,7 @@
   /* width: 100vw; */
   overflow-x: hidden;
   background-color: rgb(226, 232, 240);
+  overflow-y: auto;
 }
 ::ng-deep .myCustomGrid .k-header {
   border: none;
@@ -287,6 +288,16 @@
   overflow-x: hidden;
   padding: 20px;
   box-sizing: border-box;
+}
+
+::ng-deep .k-grid-pager {
+  /* position: fixed;
+  bottom: 0;
+  display: flex;
+  width: 85%;
+  left: 223px;
+  right: 0;
+  z-index: 1000; */
 }
 
 ::ng-deep .k-pager .k-pager-numbers-wrap .k-dropdown-list {
@@ -312,10 +323,22 @@
 ::ng-deep .k-grid-content {
   background-color: rgb(226, 232, 240);
 }
+
+/* ::ng-deep .k-grid .k-table-row.k-table-alt-row :hover,
+::ng-deep .k-grid .k-table-row :hover {
+  background-color: #5a8f6d;
+} */
 ::ng-deep .k-pager {
   background-color: rgb(226, 232, 240);
 }
 
-::ng-deep .k-pager:focus {
-  border: none;
+::ng-deep .k-grid .k-grid-container {
+  /* padding-bottom: 17px; */
+}
+
+::ng-deep .k-list-item.k-selected:hover {
+  background-color: #15803d !important;
+}
+::ng-deep .k-list-item.k-selected {
+  background-color: #15803d;
 }

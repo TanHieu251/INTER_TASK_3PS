@@ -1,6 +1,10 @@
-<div class="flex w-full justify-between items-center px-4 mt-[68px] mb-3">
-  <ul class="items-center flex text-sm font-medium gap-4 overflow-x-auto">
+<div
+  class="flex w-full gap-3 justify-between items-center px-4 mt-[68px] mb-3 overflow-x-auto"
+>
+  <ul class="items-center flex text-sm font-medium gap-4">
     <li
+      #checkbox
+      [ngClass]="{ checked: ischecked }"
       class="checkbox flex items-center bg-white border gap-4 rounded-full py-2 px-5 border-gray-200"
     >
       <label
@@ -14,7 +18,7 @@
         value="soan_thao"
         class="w-4 h-4 accent-green-600 checkboxInput checkbox"
         (change)="filterGetStatus($event)"
-        (change)="(onCheckboxChange)"
+        (change)="filterGetStatus($event); onCheckboxChange()"
       />
     </li>
     <li
@@ -84,7 +88,7 @@
   </ul>
   <div class="flex items-center gap-4">
     <div
-      class="items-center bg-white rounded-sm cursor-pointer hover:opacity-70"
+      class="items-center bg-white rounded-sm cursor-pointer hover:opacity-70 shadow-lg"
     >
       <button class="h-full text-[#959db3]">
         <svg
@@ -106,7 +110,7 @@
       </button>
     </div>
     <div
-      class="items-center py-1 bg-white rounded-sm px-3 cursor-pointer hover:opacity-70"
+      class="items-center py-1 bg-white rounded-sm px-3 cursor-pointer hover:opacity-70 shadow-lg"
     >
       <button class="h-full flex items-center text-[#959db3]">
         <svg
