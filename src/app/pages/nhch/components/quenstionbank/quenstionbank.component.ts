@@ -101,7 +101,7 @@ export class QuenstionbankComponent implements OnInit {
     checkboxOnly: true,
   };
   @Output() popup2Shown: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  popupshown: boolean = false;
   private items: QuestionBank[] = questionBanks;
 
   public onToggle(el: any): void {
@@ -440,7 +440,8 @@ export class QuenstionbankComponent implements OnInit {
         this.selectedRowitem.push(row.dataItem);
         this.showSecondPopup = true;
         this.show = false;
-        this.popup2Shown.emit(true);
+        this.popupshown = !this.popupshown;
+        this.popup2Shown.emit(this.selectedRowitem.length > 0);
       });
     }
 
@@ -477,8 +478,8 @@ export class QuenstionbankComponent implements OnInit {
     } else {
       this.currentFunctions = [];
       this.showSecondPopup = false;
-      this.popup2Shown.emit(false);
       this.show = false;
+      this.clearSelectedRows();
     }
 
     this.handleFunctionPopup2(this.selectedRowitem);
@@ -572,6 +573,7 @@ export class QuenstionbankComponent implements OnInit {
 
   clearSelectedRows() {
     this.selectedRowitem = [];
+    this.popup2Shown.emit(false);
   }
   closePopup2() {
     this.clearSelectedRows();

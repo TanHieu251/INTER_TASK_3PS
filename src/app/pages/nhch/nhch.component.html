@@ -10,18 +10,19 @@
     ></app-navbar>
 
     <app-header-checkbox
+      [ngClass]="{ disabled: isComponentDisabled }"
       (filterStatus)="onChecked($event)"
     ></app-header-checkbox>
     <app-filter
+      [ngClass]="{ disabled: isComponentDisabled }"
       (filterReset)="onResetFilter()"
       (searchValueChanged)="onSearch($event)"
     ></app-filter>
 
     <app-quenstionbank
+      (popup2Shown)="onPopup2ShownChanged($event)"
       [searchText]="searchText"
       [checkedValues]="checkedValues"
     ></app-quenstionbank>
   </div>
 </div>
-
-<div *if="popup2Shown">{{ popup2Shown }}</div>

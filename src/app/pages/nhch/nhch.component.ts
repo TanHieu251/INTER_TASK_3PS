@@ -11,12 +11,16 @@ export class NhchComponent implements OnInit {
   searchText: string = '';
   checkedValues: string[] = [];
   isCheckboxChecked: boolean = false;
-  popup2Shown: boolean = false;
+  popupShown: boolean = false;
+  isComponentDisabled: boolean = false;
+
+  ngOnChanges(): void {}
 
   ngOnInit(): void {
-    this.onPopup2ShownChanged(this.popup2Shown);
-    console.log('Popup 2 shown initially:', this.popup2Shown);
+    this.onPopup2ShownChanged(this.popupShown);
+    console.log('Popup 2 shown initially:', this.popupShown);
   }
+
   onNavbarItemClicked(item: NavbarItem): void {
     this.selectedNavbarItem = item;
     console.log(this.selectedNavbarItem);
@@ -43,11 +47,8 @@ export class NhchComponent implements OnInit {
 
   // Phương thức để chuyển đổi trạng thái bật/tắt của popup
   onPopup2ShownChanged(popup2Shown: boolean): void {
-    if ((popup2Shown = true)) {
-      this.popup2Shown = popup2Shown;
-      console.log(popup2Shown);
-    } else {
-      this.popup2Shown = false;
-    }
+    this.popupShown = popup2Shown;
+    this.isComponentDisabled = popup2Shown;
+    console.log('This is true or false ?', popup2Shown);
   }
 }

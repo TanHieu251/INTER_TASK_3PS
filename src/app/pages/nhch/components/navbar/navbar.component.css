@@ -6,7 +6,7 @@
   position: fixed;
   flex-shrink: 0; /* Ngăn chặn navbar mở rộng ra ngoài giới hạn chiều ngang của màn hình */
   width: 100vw;
-  z-index: 100;
+  z-index: 1000;
   /* background-color: white; */
 }
 
