@@ -2,19 +2,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 3px; /* Đảm bảo padding đủ cho phần tử */
+  padding: 0 3px;
   position: fixed;
   flex-shrink: 0; /* Ngăn chặn navbar mở rộng ra ngoài giới hạn chiều ngang của màn hình */
   width: 100vw;
   z-index: 100;
+  /* background-color: white; */
 }
 
 .navbar-item {
-  flex: 1; /* Cho phần tử mở rộng để lấp đầy không gian */
-  max-width: calc(100vw - 223px); /* Giới hạn kích thước tối đa của phần tử */
+  flex: 1;
+  max-width: calc(100vw - 223px);
 }
 
 .nav-button {
-  font-size: 1.2em; /* Đảm bảo kích thước font đủ lớn */
-  padding: 10px 15px; /* Đảm bảo padding đủ cho phần tử */
+  font-size: 1.2em;
+  padding: 10px 15px;
 }

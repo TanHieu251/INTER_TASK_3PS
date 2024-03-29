@@ -1,6 +1,12 @@
 .inputSearch {
-  font-family: Artial, "FontAwesome";
+  font-family: Arial, "FontAwesome";
   font-style: normal;
   font-weight: normal;
   text-decoration: inherit;
+  padding-left: 15px;
+  /* color: #9ca3b7; */
+}
+.textShdow {
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  color: black;
 }

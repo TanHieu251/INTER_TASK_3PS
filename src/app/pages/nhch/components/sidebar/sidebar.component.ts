@@ -13,7 +13,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {}
 
   isDropdownOpen(sidebarItem: SidebarItem): boolean {
-    return !!this.dropdownStates[sidebarItem.id];
+    return !this.dropdownStates[sidebarItem.id];
   }
 
   toggleDropdown(sidebarItem: SidebarItem): void {

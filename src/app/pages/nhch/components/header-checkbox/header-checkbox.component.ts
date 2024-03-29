@@ -10,6 +10,8 @@ export class HeaderCheckboxComponent {
   @Output() checkboxValueChanged: EventEmitter<boolean> =
     new EventEmitter<boolean>();
   @Input() isCheckboxChecked: boolean = false;
+  @Input() disabled: boolean = false;
+  @Input() showSecondPopup: boolean = false;
 
   ischecked: boolean = false;
 
@@ -28,9 +30,7 @@ export class HeaderCheckboxComponent {
   //phuong thuc goi lai tu parent, reset checkbox
 
   ngOnChanges(): void {
-    if (this.isCheckboxChecked) {
-      this.ischecked = false; // Thiết lập lại trạng thái checkbox
-    }
+    this.ischecked = !this.ischecked;
   }
 
   onCheckboxChange(): void {

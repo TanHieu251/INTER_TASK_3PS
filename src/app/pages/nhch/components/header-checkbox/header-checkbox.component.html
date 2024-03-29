@@ -1,25 +1,28 @@
 <div class="flex w-full justify-between items-center px-4 mt-[68px] mb-3">
-  <ul class="items-center flex text-sm font-medium gap-4">
+  <ul class="items-center flex text-sm font-medium gap-4 overflow-x-auto">
     <li
-      class="flex items-center bg-white border gap-4 rounded-full py-2 px-5 border-gray-200"
+      class="checkbox flex items-center bg-white border gap-4 rounded-full py-2 px-5 border-gray-200"
     >
-      <label for="vue-checkbox-list1" class="text-sm text-gray-500 font-medium"
+      <label
+        for="vue-checkbox-list1"
+        class="checkbox text-sm text-gray-500 font-medium text-nowrap"
         >Đang soạn thảo</label
       >
       <input
         id="vue-checkbox-list1"
         type="checkbox"
         value="soan_thao"
-        class="w-4 h-4 accent-green-600"
+        class="w-4 h-4 accent-green-600 checkboxInput checkbox"
         (change)="filterGetStatus($event)"
-        [(ngModel)]="ischecked"
         (change)="(onCheckboxChange)"
       />
     </li>
     <li
-      class="flex py-2 px-5 items-center gap-5 bg-white border rounded-full border-gray-200"
+      class="checkbox flex py-2 px-5 items-center gap-5 bg-white border rounded-full border-gray-200"
     >
-      <label for="vue-checkbox-list2" class="text-sm text-gray-500 font-medium"
+      <label
+        for="vue-checkbox-list2"
+        class="checkbox text-sm text-gray-500 font-medium text-nowrap"
         >Gửi Duyệt</label
       >
       <input
@@ -27,13 +30,15 @@
         type="checkbox"
         value="gui_duyet"
         (change)="filterGetStatus($event)"
-        class="w-4 h-4 accent-green-600"
+        class="checkbox w-4 h-4 accent-green-600"
       />
     </li>
     <li
-      class="flex py-2 px-5 items-center gap-5 bg-white border rounded-full border-gray-200"
+      class="checkbox flex py-2 px-5 items-center gap-5 bg-white border rounded-full border-gray-200"
     >
-      <label for="vue-checkbox-list3" class="text-sm text-gray-500 font-medium"
+      <label
+        for="vue-checkbox-list3"
+        class="checkbox text-sm text-gray-500 font-medium text-nowrap"
         >Đã duyệt</label
       >
       <input
@@ -41,13 +46,15 @@
         type="checkbox"
         value="duyet_ap_dung"
         (change)="filterGetStatus($event)"
-        class="w-4 h-4 accent-green-600"
+        class="checkbox w-4 h-4 accent-green-600"
       />
     </li>
     <li
-      class="flex py-2 px-5 items-center gap-5 bg-white border rounded-full border-gray-200"
+      class="checkbox flex py-2 px-5 items-center gap-5 bg-white border rounded-full border-gray-200"
     >
-      <label for="vue-checkbox-list4" class="text-sm text-gray-500 font-medium"
+      <label
+        for="vue-checkbox-list4"
+        class="checkbox text-sm text-gray-500 font-medium text-nowrap"
         >Ngưng áp dụng</label
       >
       <input
@@ -55,13 +62,15 @@
         type="checkbox"
         value="ngung_apdung"
         (change)="filterGetStatus($event)"
-        class="w-4 h-4 accent-green-600"
+        class="checkbox w-4 h-4 accent-green-600"
       />
     </li>
     <li
-      class="flex py-2 px-5 items-center gap-5 bg-white border rounded-full border-gray-200"
+      class="checkbox flex py-2 px-5 items-center gap-5 bg-white border rounded-full border-gray-200"
     >
-      <label for="vue-checkbox-list5" class="text-sm text-gray-500 font-medium"
+      <label
+        for="vue-checkbox-list5"
+        class="checkbox text-sm text-gray-500 font-medium text-nowrap"
         >Trả về</label
       >
       <input
@@ -69,20 +78,22 @@
         type="checkbox"
         value="tra_Ve"
         (change)="filterGetStatus($event)"
-        class="w-4 h-4 accent-green-600"
+        class="checkbox w-4 h-4 accent-green-600"
       />
     </li>
   </ul>
   <div class="flex items-center gap-4">
-    <div class="items-center bg-white opacity-50 rounded-sm">
-      <button class="h-full">
+    <div
+      class="items-center bg-white rounded-sm cursor-pointer hover:opacity-70"
+    >
+      <button class="h-full text-[#959db3]">
         <svg
           class=""
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          class="w-[33px] h-[33px] text-gray-500"
+          class="w-[33px] h-[33px]"
         >
           <path
             stroke="currentColor"
@@ -94,10 +105,12 @@
         </svg>
       </button>
     </div>
-    <div class="items-center py-1 bg-white opacity-50 rounded-sm px-3">
-      <button class="h-full flex items-center">
+    <div
+      class="items-center py-1 bg-white rounded-sm px-3 cursor-pointer hover:opacity-70"
+    >
+      <button class="h-full flex items-center text-[#959db3]">
         <svg
-          class="w-[35px] h-[32px] text-gray-500"
+          class="w-[35px] h-[32px]"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -118,9 +131,9 @@
       </button>
     </div>
     <div
-      class="bg-green-700 font-semibold shadow-lg py-2 px-4 text-stone-200 rounded-sm"
+      class="bg-green-700 hover:bg-green-600 font-semibold shadow-md shadow-green-300 py-2 px-4 text-stone-200 rounded-sm"
     >
-      <button class="">+ THÊM MỚI</button>
+      <button class="text-nowrap">+ THÊM MỚI</button>
     </div>
   </div>
 </div>

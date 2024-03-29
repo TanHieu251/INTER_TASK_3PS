@@ -54,6 +54,7 @@ html,
   font-variation-settings: normal;
   /* 6 */
   -webkit-tap-highlight-color: transparent;
+
   /* 7 */
 }
 
@@ -67,6 +68,7 @@ body {
   /* 1 */
   line-height: inherit;
   /* 2 */
+  overflow-x: hidden;
 }
 
 /*

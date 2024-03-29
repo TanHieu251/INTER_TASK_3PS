@@ -1,10 +1,14 @@
-<div class="flex w-full bg-slate-200">
-  <app-sidebar [selectedNavbarItem]="selectedNavbarItem"></app-sidebar>
-  <div class="bg-slate-200">
+<div class="flex w-full bg-slate-200" style="overflow-x: hidden">
+  <app-sidebar
+    class="bg-slate-600"
+    [selectedNavbarItem]="selectedNavbarItem"
+  ></app-sidebar>
+  <div class="bg-slate-200 overflow-x-auto">
     <app-navbar
       class=""
       (openSidebar)="onNavbarItemClicked($event)"
     ></app-navbar>
+
     <app-header-checkbox
       (filterStatus)="onChecked($event)"
     ></app-header-checkbox>
@@ -19,3 +23,5 @@
     ></app-quenstionbank>
   </div>
 </div>
+
+<div *if="popup2Shown">{{ popup2Shown }}</div>

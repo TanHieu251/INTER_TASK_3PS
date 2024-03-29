@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, ViewChildren } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChildren,
+} from '@angular/core';
 import {
   GridDataResult,
   PageChangeEvent,
@@ -68,16 +75,17 @@ export class QuenstionbankComponent implements OnInit {
   // show popup
   public show: boolean = false;
   public showSecondPopup: boolean = false;
+
   // function popup
   public currentFunctions: { name: string; icon: string }[] = [];
   //select question
   public selectedQuestion: QuestionBank | null = null;
   public selectedQuestioDialog: any | null = null;
+
   //selection key
   public mySelectionKey = (context: RowArgs) => context.dataItem;
   selectedRowitem = new Array<any>();
   count: number = 0;
-
   //popup
   @Input() anchor: any;
   @Input() anchor2: any;
@@ -92,6 +100,7 @@ export class QuenstionbankComponent implements OnInit {
     drag: true,
     checkboxOnly: true,
   };
+  @Output() popup2Shown: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private items: QuestionBank[] = questionBanks;
 
@@ -224,6 +233,12 @@ export class QuenstionbankComponent implements OnInit {
     this.onQuestionSelect(dataItem);
     this.selectedQuestion = dataItem;
     this.handleButton(this.selectedQuestion, dataItem);
+
+    if (this.showSecondPopup) {
+      this.showSecondPopup = false;
+    }
+
+    // Hiển thị popup 1
   }
   // chuyen doi text cho status (soan_thao -> đang soạn thảo)
   getStatusText(status: QuestionStatus): string {
@@ -419,9 +434,13 @@ export class QuenstionbankComponent implements OnInit {
   //   console.log(this.selectedRowitem);
   // }
   togglePopupCheck(e: SelectionEvent) {
+    this.clearSelectedRows();
     if (e.selectedRows?.length) {
       e.selectedRows.forEach((row) => {
         this.selectedRowitem.push(row.dataItem);
+        this.showSecondPopup = true;
+        this.show = false;
+        this.popup2Shown.emit(true);
       });
     }
 
@@ -457,6 +476,9 @@ export class QuenstionbankComponent implements OnInit {
       }));
     } else {
       this.currentFunctions = [];
+      this.showSecondPopup = false;
+      this.popup2Shown.emit(false);
+      this.show = false;
     }
 
     this.handleFunctionPopup2(this.selectedRowitem);
@@ -490,6 +512,7 @@ export class QuenstionbankComponent implements OnInit {
               item.status = QuestionStatus.Draft;
               console.log('Updated question status to Draft:', item);
             }
+            this.closePopup2();
             break;
           case 'Gửi duyệt':
             if (!item.code || !item.typeQuestion) {
@@ -503,30 +526,39 @@ export class QuenstionbankComponent implements OnInit {
                 `Gửi duyệt thành công ${item.title}`,
                 'success'
               );
+              this.closePopup2();
               this.clearSelectedRows();
             }
             console.log('Updated question status to PendingApproval:', item);
             break;
           case 'Xóa câu hỏi':
             this.deleteQuestion(item.id);
+            this.closePopup2();
+
             break;
           case 'Phê duyệt':
             item.status = QuestionStatus.Approved;
             this.showNotification('Phê duyệt thành công', 'success');
             this.clearSelectedRows();
             console.log('Updated question status to Approved:', item);
+            this.closePopup2();
+
             break;
           case 'Trả về':
             item.status = QuestionStatus.Returned;
             this.showNotification('Trả về thành công', 'success');
             this.clearSelectedRows();
             console.log('Updated question status to Returned:', item);
+            this.closePopup2();
+
             break;
           case 'Ngưng áp dụng':
             item.status = QuestionStatus.Discontinued;
             this.showNotification('Ngưng áp dụng thành công', 'success');
             this.clearSelectedRows();
             console.log('Updated question status to Discontinued:', item);
+            this.closePopup2();
+
             break;
           default:
             break;

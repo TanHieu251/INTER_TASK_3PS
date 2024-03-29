@@ -2,5 +2,10 @@
   box-sizing: border-box;
 }
 body {
-  background-color: rgb(229, 231, 235);
+  background-color: red;
+}
+
+::ng-deep .disabled {
+  pointer-events: none; /* Vô hiệu hóa sự kiện chuột */
+  opacity: 0.5; /* Hiển thị mờ để biểu thị vô hiệu hóa */
 }

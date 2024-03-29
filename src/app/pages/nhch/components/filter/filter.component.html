@@ -1,6 +1,6 @@
 <div class="border-t border-t-zinc-300 border-b border-b-zinc-300 pb-3">
   <div class="flex w-full items-center gap-9">
-    <div class="flex px-4 text-zinc-500 items-center py-3 gap-1">
+    <div class="flex px-4 text-zinc-500 items-center py-3 gap-1 font-medium">
       <svg
         class="w-6 h-6 text-zinc-500"
         aria-hidden="true"
@@ -20,13 +20,15 @@
 
       <h1 class="text-xl">Lọc dữ liệu</h1>
     </div>
-    <div><h3 class="text-base font-medium text-zinc-500">Tìm kiếm</h3></div>
+    <div>
+      <h3 class="text-base textShdow font-medium">Tìm kiếm</h3>
+    </div>
   </div>
   <div class="flex w-full items-center gap-9 px-10">
     <div>
       <button
         (click)="resetFilter()"
-        class="underline text-green-500 text-base pr-[30px]"
+        class="underline text-nowrap text-green-600 hover:text-green-500 text-base pr-[30px]"
       >
         Reset bộ lọc
       </button>
@@ -37,12 +39,13 @@
           type="text"
           placeholder=" &#xF002; Tìm theo mã và câu hỏi"
           class="inputSearch w-[500px] py-2 rounded-md focus:outline-none"
+          (keydown.enter)="onSearch()"
           [(ngModel)]="searchText"
         />
       </div>
 
       <button
-        class="bg-green-700 flex text-white p-2 rounded-sm"
+        class="bg-green-700 flex text-white p-2 rounded-sm shadow-md shadow-green-300 hover:bg-green-600"
         (click)="onSearch()"
       >
         <svg

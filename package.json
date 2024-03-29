@@ -24,7 +24,7 @@
     "@progress/kendo-angular-dateinputs": "^15.2.0",
     "@progress/kendo-angular-dropdowns": "^15.2.0",
     "@progress/kendo-angular-excel-export": "^15.2.0",
-    "@progress/kendo-angular-grid": "^15.3.0",
+    "@progress/kendo-angular-grid": "^13.0.0",
     "@progress/kendo-angular-icons": "15.3.0",
     "@progress/kendo-angular-inputs": "^15.2.0",
     "@progress/kendo-angular-intl": "^15.2.0",

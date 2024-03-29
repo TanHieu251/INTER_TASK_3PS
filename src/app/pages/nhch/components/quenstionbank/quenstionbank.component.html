@@ -1,6 +1,6 @@
+<!-- [data]="gridView" -->
 <div class="questionBank">
   <kendo-grid
-    [data]="gridView"
     [data]="combineFilters()"
     [pageSize]="pageSize"
     [skip]="skip"
@@ -75,7 +75,7 @@
       </kendo-grid-column>
       <kendo-grid-column
         [headerStyle]="{ 'text-align': 'center', 'justify-content': 'center' }"
-        [style]="{ 'text-align': 'center' }"
+        [style]="{ 'text-align': 'center', 'font-weight': 'bold' }"
         field="time"
         title="Thời gian làm "
         [width]="160"
@@ -215,7 +215,7 @@
       >
         <div class="box boxFunc function-item">
           <i class="{{ func.icon }}  text-gray-400 "></i>
-          <br />
+
           <span>{{ func.name }}</span>
         </div>
       </button>

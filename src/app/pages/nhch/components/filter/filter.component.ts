@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-filter',
@@ -9,6 +9,7 @@ export class FilterComponent {
   @Output() searchValueChanged: EventEmitter<string> =
     new EventEmitter<string>();
   @Output() filterReset: EventEmitter<void> = new EventEmitter<void>();
+  @Input() disabled: boolean = false;
 
   searchText: string = '';
 
