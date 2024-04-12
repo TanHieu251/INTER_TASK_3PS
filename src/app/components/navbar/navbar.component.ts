@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NavBarService } from '../../services/nav-bar.service';
-import { NavbarItem } from '../../models/navBar.model';
+import { NavBarService } from '../../pages/nhch/services/nav-bar.service';
+import { NavbarItem } from '../../pages/nhch/models/navBar.model';
 
 @Component({
   selector: 'app-navbar',

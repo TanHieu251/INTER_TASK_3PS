@@ -1,0 +1,72 @@
+// public getPositionNames(): void { // const positionNamesSet = new Set<string
+  >(); // const uniquePositions: { name: string; data: any[] }[] = []; // Array
+  to store unique position names and corresponding data //
+  this.items.forEach((item) => { // if
+  (!positionNamesSet.has(item.PositionName)) { //
+  positionNamesSet.add(item.PositionName); // uniquePositions.push({ name:
+  item.PositionName, data: [item] }); // Store the item in an array under the
+  position name // } else { // const existingPositionIndex =
+  uniquePositions.findIndex( // (position) => position.name ===
+  item.PositionName // ); //
+  uniquePositions[existingPositionIndex].data.push(item); // Push the item into
+  the data array of the existing position // } // }); // this.PositionNameArray
+  = uniquePositions; // console.log('PositionName', this.PositionNameArray); //
+  }
+
+  <!--  -->
+
+  // private groupCompetencesByPosition(): void { // this.PositionsArray =
+  this.items.reduce( // (acc: any[], item: PositionModel) => { // const
+  positionId = item.PositionID; // const existingPosition = acc.find( //
+  (position) => position.PositionID === positionId // ); // if
+  (existingPosition) { // existingPosition.competences.push(item); // } else {
+  // acc.push({ // PositionID: positionId, // competences: [item], // }); // }
+  // return acc; // }, // [] // ); // console.log('competencebyPosition:',
+  this.PositionsArray); // this.loadItems(); // } // Declare PositionsArray with
+  the correct type</string
+>
+
+  private groupCompetencesByPosition(): void {
+    this.PositionsArray = this.items.reduce(
+      (acc: PositionModel[][], item: PositionModel) => {
+        const positionName = item.PositionName;
+
+        const existingPositionIndex = acc.findIndex((positions) =>
+          positions.some((position) => position.PositionName === positionName)
+        );
+
+        if (existingPositionIndex !== -1) {
+          acc[existingPositionIndex].push(item);
+        } else {
+          acc.push([item]);
+        }
+
+        return acc;
+      },
+      []
+    );
+    // console.log('competencebyPosition:', this.PositionsArray);
+  }
+
+
+  // private potisionsSecondHand(): void {
+  //   const positionMap = new Map<string, PositionModel[]>();
+
+  //   this.items.forEach((item) => {
+  //     const positionName = item.PositionName;
+
+  //     if (positionMap.has(positionName)) {
+  //       // If the position already exists in the map, push the item to its array
+  //       const existingPositionArray = positionMap.get(positionName);
+  //       if (existingPositionArray) {
+  //         existingPositionArray.push(item);
+  //       }
+  //     } else {
+  //       // If the position does not exist in the map, create a new array and add the item to it
+  //       positionMap.set(positionName, [item]);
+  //     }
+  //   });
+
+  //   // Convert the map values to an array
+  //   this.PositionsArray = Array.from(positionMap.values());
+  // }

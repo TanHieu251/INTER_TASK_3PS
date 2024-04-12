@@ -1,0 +1,10 @@
+.lh-25 {
+  line-height: 2.5rem;
+}
+
+.bread {
+  max-width: calc(100vw - 261px);
+}
+::ng-deep .date .k-button {
+  border: none;
+}

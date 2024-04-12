@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavbarItem, SidebarItem } from '../../models/navBar.model';
+import { NavbarItem, SidebarItem } from '../../pages/nhch/models/navBar.model';
 
 @Component({
   selector: 'app-sidebar',

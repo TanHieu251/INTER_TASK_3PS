@@ -1,0 +1,126 @@
+<div class="cappacity h-full overflow-auto">
+  <div class="pt-5">
+    <span
+      class="uppercase text-[16px] block w-full py-[12px] text-left text-[#26282e] font-bold"
+      >Chi tiết khung năng lực <span class="text-[#891828]">(*)</span>
+    </span>
+  </div>
+  <div
+    class="flex cappacity shadow-lg bg-white max-h-[422px] h-[422px] overflow-y-hidden"
+  >
+    <!-- Chức danh -->
+    <div
+      class="block w-[300px] potision overflow-y-hidden relative outline-[2px] outline-green-800 bg-[#d1e0d6]"
+    >
+      <div class="relative w-full h-[55px] bg-[#acc7b5] font-medium">
+        <span class="headerPotision1">Chức danh</span>
+        <span class="line"></span>
+        <span class="headerPotision2">Năng lực</span>
+      </div>
+      <div class="overflow-y-auto">
+        <div
+          *ngFor="let position of PositionNameArray"
+          class="flex items-center bg-[#d1e0d6] h-[55px] text-nowrap gap-3 pl-6"
+        >
+          <div title="{{ position.id }}" class="">{{ position.id }}</div>
+          <div class="w-[2px] h-[30%] bg-stone-400 opacity-30"></div>
+          <div title="{{ position.name }}">{{ position.name }}</div>
+        </div>
+      </div>
+      <div class="btnPotision w-full h-[42px] absolute bottom-0">
+        <div class="w-full h-full bg-[#d1e0d6] text-nowrap">
+          <button
+            class="w-full h-full text-green-700 hover:text-green-600 font-medium"
+          >
+            <i class="fa-solid fa-circle-plus mr-1 text-[20px]"></i>
+            <span>Thêm mới chức danh</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="w-full overflow-x-auto overflow-y-hidden">
+      <div class="flex justify-between w-full bg-[#d1e0d6]">
+        <div class="flex">
+          <ng-container *ngFor="let competenceName of CompetenceNameArray">
+            <div class="w-[150px] h-[55px]">
+              <div
+                class="bg-[#d1e0d6] items-center h-full w-full sticky p-[6px]"
+              >
+                <span
+                  title="{{ competenceName }}"
+                  class="font-bold text-center block text-[#5a6276] text-nowrap h-[50%] uppercase"
+                >
+                  {{ competenceName }}
+                </span>
+                <img
+                  class="w-[13px] h-[13px] absolute top-[6px] right-[8px]"
+                  src="http://172.16.10.86:74/assets/img/icon/icon_circleInfo.svg"
+                  alt=""
+                />
+                <div class="flex justify-around h-[50%]">
+                  <span>Min</span><span>Max</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div>
+          <div class="w-full h-full">
+            <button
+              class="w-full h-full bg-[#d1e0d6] text-green-700 hover:text-green-600 font-medium pr-3 text-nowrap"
+            >
+              <i class="fa-solid fa-circle-plus mr-1 text-[20px] pr-2"></i>
+              <span>Thêm năng lực</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="flex w-full h-[100%] overflow-y-auto">
+        <div>
+          <div class="flex h-full">
+            <ng-container
+              *ngFor="let competenceName of CompetenceNameArray; let i = index"
+            >
+              <div class="w-[150px]" [ngClass]="{ 'bg-[#f5f6f8]': isEven(i) }">
+                <div *ngFor="let potision of PositionsArray" class="">
+                  <div>
+                    <div *ngFor="let item of potision">
+                      <ng-container
+                        *ngIf="item.CompetenceName === competenceName"
+                      >
+                        <div class="flex items-center">
+                          <div class="flex">
+                            <div
+                              class="h-[55px] w-[75px] flex justify-center items-center"
+                            >
+                              <input
+                                type="number"
+                                (blur)="handleBlurLevel(item, $event)"
+                                [ngModel]="item.CompetenceLevel"
+                                class="w-[70%] h-[70%] text-sm text-gray-700 text-center hover:border-[1px] rounded-md hover:border-green-800 font-medium text-[17px] bg-transparent"
+                              />
+                            </div>
+                            <div
+                              class="h-[55px] w-[75px] flex justify-center items-center"
+                            >
+                              <input
+                                type="number"
+                                [ngModel]="item.CompetenceLevelMax"
+                                (blur)="handleBlurLevelMax(item, $event)"
+                                class="w-[70%] h-[70%] text-sm text-gray-700 text-center hover:border-[1px] rounded-md hover:border-green-800 font-medium text-[17px] bg-transparent"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

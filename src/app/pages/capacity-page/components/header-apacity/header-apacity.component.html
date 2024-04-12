@@ -1,0 +1,100 @@
+<div class="w-[100vw] overflow-x-auto">
+  <div class="mt-[55px] w-full z-50 bg-[#e2e8f0] fixed">
+    <div
+      class="bread px-[20px] py-[21px] flex bg-[#e2e8f0] justify-between items-center pb-2 overflow-x-auto"
+    >
+      <div
+        class="font-medium text-[17px] text-green-800 uppercase text-nowrap pr-2"
+      >
+        <span>Đánh giá nhân sự </span> <span>> Khung năng lực</span
+        ><span class="text-stone-400">> Chi tiết khung năng lực</span>
+      </div>
+      <div class="flex uppercase space-x-3 text-white">
+        <!-- Added space-x-3 class for spacing -->
+        <button
+          class="bg-red-500 hover:bg-red-400 px-2 h-[2.5rem] text-nowrap rounded-md uppercase shadow-md shadow-blue-300 text-center"
+        >
+          <div class="text-center ]">
+            <i class="fa-solid fa-trash white mr-2"></i> Xoá khung nl
+          </div>
+        </button>
+        <button
+          class="bg-green-700 hover:bg-green-600 px-2 h-[2.5rem] text-nowrap lh-25 rounded-md uppercase shadow-md shadow-blue-300 text-center"
+        >
+          <div><i class="fa-solid fa-share white mr-2"></i>Gửi duyệt</div>
+        </button>
+        <button
+          class="bg-green-700 hover:bg-green-600 px-2 h-[2.5rem] text-nowrap lh-25 rounded-md uppercase shadow-md shadow-blue-300 text-center"
+        >
+          <div><i class="fa-solid fa-plus white mr-2"></i>Thêm mới</div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="w-full mt-[132px] text-nowrap overflow-x-auto border-t border-t-neutral-300"
+  >
+    <div class="py-4">
+      <h2 class="uppercase text-[19px] font-medium">
+        Thông tin khung năng lực
+      </h2>
+    </div>
+    <div class="bg-white flex h-[250px] bread overflow-x-auto">
+      <div class="py-[13px] px-[20px] gap-4 flex w-full">
+        <div class="w-[20%]">
+          <div class="visit-demo card-container">
+            <div class="k-card custom-card border-none">
+              <div class="card-row">
+                <div class="card-column">
+                  <div class="component-container">
+                    <kendo-label
+                      class="flex flex-col text-nowrap font-medium text-stone-500"
+                      text="Ngày hiệu lực khung năng lực"
+                    >
+                      <kendo-datepicker
+                        class="w-[110px] h-[30px] mt-2 bg-[#e2e8f0] date"
+                        [value]="value"
+                      ></kendo-datepicker>
+                    </kendo-label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="py-2">
+            <span
+              class="text-nowrap font-medium text-stone-500 text-[15px] text-[959db3]"
+              >Tình trạng</span
+            >
+          </div>
+          <div>
+            <span class="text-[16px] text-nowrap font-medium text-green-700"
+              >Đã phê duyệt</span
+            >
+          </div>
+        </div>
+
+        <div class="flex-1">
+          <div class="box-border block w-full">
+            <label class="font-medium text-stone-400 pb-2 block" for="name"
+              >Tên khung năng lực</label
+            >
+            <input
+              type="text"
+              class="outline h-[32px] w-full block rounded-sm outline-stone-300 pl-2"
+            />
+          </div>
+          <div class="flex flex-col pt-3">
+            <label class="font-medium text-stone-400 pb-2" for="name"
+              >Diễn giải</label
+            >
+            <textarea
+              type="text"
+              class="outline h-[100px] rounded-sm outline-stone-300 w-full pl-2"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
