@@ -1,0 +1,36 @@
+<div class="container-header">
+  <div class="header-1">
+    <div class="header-left">
+      <div class="filters">
+        <div *ngFor="let item of status; let i = index">
+          <ng-template ngIf="item">
+            <section class="flex">
+              <button class="checked-button">
+                <mat-checkbox class="checkbox" [checked]="i === 0">{{
+                  item.name
+                }}</mat-checkbox>
+              </button>
+            </section>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <section>
+        <div class="butttonr-row">
+          <button class="button" mat-flat-button>
+            <mat-icon class="mat-18 icon-upload">file_upload</mat-icon>
+          </button>
+          <button class="button" mat-flat-button>
+            <mat-icon class="mat-18">file_download</mat-icon>
+            Template
+          </button>
+          <button class="button button-add" mat-flat-button>
+            <mat-icon>add</mat-icon>
+            Thêm mới
+          </button>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

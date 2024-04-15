@@ -23,37 +23,57 @@ import { HttpClientModule } from '@angular/common/http';
 import { QuenstionbankComponent } from './pages/nhch/components/quenstionbank/quenstionbank.component';
 import { CapacityPageComponent } from './pages/capacity-page/capacity-page.component';
 import { HeaderApacityComponent } from './pages/capacity-page/components/header-apacity/header-apacity.component';
-import { CapacityComponent } from "./pages/capacity-page/components/capacity/capacity.component";
+import { CapacityComponent } from './pages/capacity-page/components/capacity/capacity.component';
+import { QuestionbankComponent } from './pages/questionbank/questionbank.component';
+import { MenuComponent } from './pages/questionbank/components/menu/menu.component';
+import { SideBarComponent } from './pages/questionbank/components/side-bar/side-bar.component';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FiltersComponent } from './pages/questionbank/components/filters/filters.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        NhchComponent,
-        NavbarComponent,
-        SidebarComponent,
-        HeaderCheckboxComponent,
-        FilterComponent,
-        QuenstionbankComponent,
-        CapacityPageComponent,
-        HeaderApacityComponent,
-    ],
-    providers: [],
-    bootstrap: [AppComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        GridModule,
-        FormsModule,
-        PopupModule,
-        BrowserAnimationsModule,
-        DialogsModule,
-        PagerModule,
-        SVGIconModule,
-        NotificationModule,
-        DatePickerModule,
-        LabelModule,
-        CapacityComponent
-    ]
+  declarations: [
+    AppComponent,
+    NhchComponent,
+    NavbarComponent,
+    SidebarComponent,
+    HeaderCheckboxComponent,
+    FilterComponent,
+    QuenstionbankComponent,
+    CapacityPageComponent,
+    HeaderApacityComponent,
+    QuestionbankComponent,
+    MenuComponent,
+    SideBarComponent,
+    FiltersComponent,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    GridModule,
+    FormsModule,
+    PopupModule,
+    BrowserAnimationsModule,
+    DialogsModule,
+    PagerModule,
+    NotificationModule,
+    DatePickerModule,
+    LabelModule,
+    CapacityComponent,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCheckboxModule,
+  ],
 })
 export class AppModule {}

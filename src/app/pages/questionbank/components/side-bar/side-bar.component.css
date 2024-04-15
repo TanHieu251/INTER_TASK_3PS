@@ -1,0 +1,31 @@
+.sidebar-container {
+  height: 100vh;
+  width: 220px;
+  background-color: rgb(90, 98, 118);
+}
+
+.sidebar {
+  width: 100%;
+  background-color: rgb(90, 98, 118);
+}
+
+.sidebar-list {
+  width: 100%;
+}
+.sidebar-item {
+  display: flex;
+  align-items: center;
+}
+.sidebar-item-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.sidebar-name,
+.sidebar-icon {
+  color: rgb(200, 206, 211);
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}

@@ -45,17 +45,17 @@ export const sidebar = [
     nav: 1,
   },
   {
-    id: 1,
+    id: 3,
     name: 'Đánh giá nhân sự',
     nav: 1,
   },
   {
-    id: 1,
+    id: 4,
     name: 'Tiền lương',
     nav: 1,
   },
   {
-    id: 1,
+    id: 5,
     name: 'Chính sách',
     nav: 1,
   },

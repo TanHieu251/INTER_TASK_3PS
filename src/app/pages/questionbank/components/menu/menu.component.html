@@ -1,29 +1,40 @@
-<div class="w-full">
-  <p>
-    <mat-toolbar color="primary">
-      <button
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with menu icon"
-      >
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>My App</span>
-      <span class="example-spacer"></span>
-      <button
-        mat-icon-button
-        class="example-icon favorite-icon"
-        aria-label="Example icon-button with heart icon"
-      >
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with share icon"
-      >
-        <mat-icon>share</mat-icon>
-      </button>
-    </mat-toolbar>
-  </p>
-</div>
+<mat-toolbar class="navbar">
+  <div class="header-left">
+    <a class="header-left-link">
+      <img
+        class="header-left-logo"
+        src="../../../../../assets/images/HachiLogo.png"
+        alt=""
+      />
+    </a>
+    <div class="header-left-icon">
+      <mat-icon class="mat-18">keyboard_arrow_down</mat-icon>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-menu">
+      <div class="header-group-name" *ngFor="let item of navBar; let i = index">
+        <ng-template ngIf="item">
+          <button
+            class="header-name"
+            (click)="selectItem(i)"
+            [ngClass]="{ selected: selectedItem === i }"
+          >
+            {{ item.name }}
+            <div class="line-active"></div>
+          </button>
+        </ng-template>
+        <div class="button-space"></div>
+      </div>
+    </div>
+  </div>
+  <div class="header-user">
+    <button mat-icon-button><mat-icon class="mat-18">search</mat-icon></button>
+    <button mat-icon-button>
+      <mat-icon class="mat-18">notifications_none</mat-icon>
+    </button>
+    <button mat-icon-button><mat-icon>account_circle</mat-icon></button>
+    <button></button>
+    <button></button>
+  </div>
+</mat-toolbar>

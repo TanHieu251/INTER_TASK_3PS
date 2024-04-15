@@ -1,0 +1,29 @@
+.cappacity {
+  max-width: calc(100vw - 261px);
+  overflow-x: hidden;
+}
+.cappacity .potision .headerPotision1 {
+  position: absolute;
+  left: 18px;
+  bottom: 0;
+  color: #5a6276;
+}
+.cappacity .potision .line {
+  position: absolute;
+  border: 1px dashed #000;
+  transform: translate(-50%, -50%) rotate(10deg);
+  display: block;
+  width: 100%;
+  right: 0;
+  top: 50%;
+  left: 50%;
+}
+.cappacity .potision .headerPotision2 {
+  position: absolute;
+  right: 18px;
+  top: 5px;
+  color: #5a6276;
+}
+.cappacity td:first-child {
+  background-color: #d1e0d6;
+}/*# sourceMappingURL=capacity.component.css.map */

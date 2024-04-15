@@ -1,0 +1,33 @@
+<mat-sidenav-container class="sidebar-container" autosize>
+  <mat-sidenav class="sidebar" mode="side" opened="true">
+    <mat-nav-list class="sidebar-list">
+      <div *ngFor="let sidebarItem of sideBar">
+        <mat-list-item class="sidebar-item" (click)="toggleSub(sidebarItem)">
+          <div class="sidebar-item-row">
+            <span class="sidebar-name">{{ sidebarItem.name }}</span>
+            <mat-icon class="sidebar-icon" *ngIf="hasChildItems(sidebarItem)"
+              >expand_more</mat-icon
+            >
+          </div>
+        </mat-list-item>
+
+        <mat-nav-list
+          class="sidebar-submenu"
+          *ngIf="showSub && currentSidebarItem === sidebarItem"
+        >
+          <div *ngFor="let childItem of child">
+            <ng-container *ngIf="childItem.side === sidebarItem.id">
+              <div class="sidebar-item-row">
+                <mat-list-item class="sidebar-item">
+                  <span class="sidebar-name"
+                    >{{ childItem.name }}
+                  </span></mat-list-item
+                >
+              </div>
+            </ng-container>
+          </div>
+        </mat-nav-list>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+</mat-sidenav-container>

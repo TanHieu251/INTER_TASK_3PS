@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { nav, sidebar, child } from 'src/assets/data/nav';
+import { nav, sidebar, child } from 'src/app/pages/questionbank/shared/data/nav';
 @Injectable({
   providedIn: 'root',
 })
