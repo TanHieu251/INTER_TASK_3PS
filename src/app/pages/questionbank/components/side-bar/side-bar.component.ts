@@ -21,13 +21,13 @@ export class SideBarComponent implements OnInit {
   getSideBar(): void {
     this.menuServices.getSidebar().subscribe((side) => {
       this.sideBar = side;
-      console.log(this.sideBar);
+      // console.log(this.sideBar);
     });
   }
   getChild(): void {
     this.menuServices.getChild().subscribe((child) => {
       this.child = child;
-      console.log(this.child);
+      // console.log(this.child);
     });
   }
   hasChildItems(sidebarItem: any): boolean {

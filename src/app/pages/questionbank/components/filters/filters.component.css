@@ -26,14 +26,13 @@
   background-color: white;
   border-radius: 15px;
   height: 30px;
-  padding: 0px 8px;
+  padding: 0 8px;
   box-shadow: 1px 3px 6px 1px rgba(143, 155, 166, 0.2);
 }
 
-.checkbox,
 .checkbox {
   height: 30px;
-  text-wrap: nowrap;
+  text-wrap: none;
 }
 
 ::ng-deep .mdc-form-field,
@@ -44,11 +43,11 @@
 }
 
 ::ng-deep
-  .mat-mdc-checkbox
-  .mat-checkbox
-  .mdc-checkbox_native-control:enabled
-  ~ .mdc-checkbox_background
-  .mdc-checkbox_checkmark {
+.mat-mdc-checkbox
+.mat-checkbox
+.mdc-checkbox_native-control:enabled
+~ .mdc-checkbox_background
+.mdc-checkbox_checkmark {
   height: 30px;
 }
 
@@ -56,7 +55,7 @@
   margin-left: auto;
 }
 
-.butttonr-row {
+.button-row {
   display: flex;
   gap: 10px;
 }
@@ -83,7 +82,12 @@
   --mdc-checkbox-selected-hover-icon-color: green;
   --mdc-checkbox-selected-icon-color: green;
   --mdc-checkbox-selected-pressed-icon-color: green;
-  --mdc-checkbox-selected-focus-state-layer-color: green;
-  --mdc-checkbox-selected-hover-state-layer-color: green;
+  --mdc-checkbox-selected-focus-state-layer-color: transparent;
+  --mdc-checkbox-selected-hover-state-layer-color: transparent;
+  --mdc-checkbox-hover-state-layer-color: transparent;
   --mdc-checkbox-selected-pressed-state-layer-color: green;
+}
+
+.selected {
+  outline: 1px solid green;
 }

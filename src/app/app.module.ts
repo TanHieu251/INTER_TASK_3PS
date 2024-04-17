@@ -27,6 +27,9 @@ import { CapacityComponent } from './pages/capacity-page/components/capacity/cap
 import { QuestionbankComponent } from './pages/questionbank/questionbank.component';
 import { MenuComponent } from './pages/questionbank/components/menu/menu.component';
 import { SideBarComponent } from './pages/questionbank/components/side-bar/side-bar.component';
+import { FiltersComponent } from './pages/questionbank/components/filters/filters.component';
+import { SearchTextComponent } from './pages/questionbank/components/search-text/search-text.component';
+import { QuestionbankListComponent } from './pages/questionbank/components/questionbank-list/questionbank-list.component';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -34,7 +37,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FiltersComponent } from './pages/questionbank/components/filters/filters.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -51,9 +56,11 @@ import { FiltersComponent } from './pages/questionbank/components/filters/filter
     MenuComponent,
     SideBarComponent,
     FiltersComponent,
+    SearchTextComponent,
+    QuestionbankListComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, MatTableDataSource],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -74,6 +81,8 @@ import { FiltersComponent } from './pages/questionbank/components/filters/filter
     MatSidenavModule,
     MatListModule,
     MatCheckboxModule,
+    MatPaginator,
+    MatTableModule,
   ],
 })
 export class AppModule {}

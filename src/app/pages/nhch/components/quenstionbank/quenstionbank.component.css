@@ -290,15 +290,15 @@
   box-sizing: border-box;
 }
 
-::ng-deep .k-grid-pager {
-  /* position: fixed;
+/* ::ng-deep .k-grid-pager {
+  position: fixed;
   bottom: 0;
   display: flex;
   width: 85%;
   left: 223px;
   right: 0;
-  z-index: 1000; */
-}
+  z-index: 1000;
+} */
 
 ::ng-deep .k-pager .k-pager-numbers-wrap .k-dropdown-list {
   display: none;
@@ -331,10 +331,10 @@
 ::ng-deep .k-pager {
   background-color: rgb(226, 232, 240);
 }
-
+/* 
 ::ng-deep .k-grid .k-grid-container {
-  /* padding-bottom: 17px; */
-}
+  padding-bottom: 17px;
+} */
 
 ::ng-deep .k-list-item.k-selected:hover {
   background-color: #15803d !important;

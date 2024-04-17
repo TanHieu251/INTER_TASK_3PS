@@ -1,0 +1,35 @@
+<div class="search">
+  <div class="search-container">
+    <div class="search-left">
+      <div class="col">
+        <div><span class="title-leftSearch">Lọc dữ liệu</span></div>
+        <div>
+          <button class="button-reset" (click)="resetFilter()">
+            <span class="reset-text">Reset bộ lọc</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="search-right">
+      <div class="col-right">
+        <div><span class="title-rightSearch">Tìm kiếm</span></div>
+        <div class="search-form">
+          <div class="search-group">
+            <mat-icon class="mat-18 search-icon">search</mat-icon>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Tìm kiếm theo mã và câu hỏi"
+              (keydown.enter)="onSearch()"
+              [(ngModel)]="searchText"
+            />
+          </div>
+          <button class="search-button" (click)="onSearch()">
+            <mat-icon class="mat-18">search</mat-icon>
+            Tìm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

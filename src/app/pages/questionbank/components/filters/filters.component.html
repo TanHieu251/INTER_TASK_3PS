@@ -5,10 +5,13 @@
         <div *ngFor="let item of status; let i = index">
           <ng-template ngIf="item">
             <section class="flex">
-              <button class="checked-button">
-                <mat-checkbox class="checkbox" [checked]="i === 0">{{
-                  item.name
-                }}</mat-checkbox>
+              <button
+                class="checked-button"
+                [ngClass]="{ selected: selectedItem === i }"
+              >
+                <mat-checkbox class="checkbox" [checked]="i === 0">
+                  {{ item.name }}</mat-checkbox
+                >
               </button>
             </section>
           </ng-template>
@@ -17,7 +20,7 @@
     </div>
     <div class="header-right">
       <section>
-        <div class="butttonr-row">
+        <div class="button-row">
           <button class="button" mat-flat-button>
             <mat-icon class="mat-18 icon-upload">file_upload</mat-icon>
           </button>

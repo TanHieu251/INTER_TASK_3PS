@@ -13,6 +13,8 @@ import { QuestionBankService } from '../../shared/services/question-bank.service
   styleUrl: './filters.component.css',
 })
 export class FiltersComponent implements OnInit {
+  selectedItem: number | null = null;
+
   constructor(private questionBankService: QuestionBankService) {}
   ngOnInit(): void {
     this.getStatus();
@@ -23,7 +25,10 @@ export class FiltersComponent implements OnInit {
   getStatus(): void {
     this.questionBankService.getStatus().subscribe((status) => {
       this.status = status;
-      console.log('status', status);
+      // console.log('status', status);
     });
+  }
+  selectItem(index: number) {
+    this.selectedItem = index;
   }
 }

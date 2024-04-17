@@ -1,0 +1,111 @@
+.myCustomTable {
+  height: 70vh;
+  overflow: auto;
+  border: none;
+  background-color: #f0f3f5;
+  box-shadow: none;
+  overflow-y: auto;
+}
+.show-popup {
+  font-weight: 700;
+}
+.button-popup {
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  box-shadow: 1px 3px 6px 1px rgba(143, 155, 166, 0.2);
+  text-align: center;
+  outline: 1px solid rgb(218, 215, 215);
+  border-radius: 5px;
+  font-size: 17px;
+}
+
+::ng-deep .myCustomTable .ng-star-inserted .mat-mdc-header-row {
+  /* position: sticky;
+  top: 0; */
+  background-color: rgb(240, 243, 245);
+}
+
+::ng-deep
+  .myCustomTable
+  .ng-star-inserted
+  .mat-mdc-header-row
+  .mat-mdc-header-cell {
+  font-weight: 600;
+  font-size: 14px;
+}
+::ng-deep .mat-mdc-paginator {
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid black;
+  padding: 0;
+}
+::ng-deep .myCustomTable .mat-mdc-table tbody tr td {
+  background-color: transparent;
+}
+::ng-deep .myCustomTable .mat-mdc-table tbody {
+  background-color: white;
+  border-spacing: 0 7px;
+  overflow-y: auto;
+}
+
+::ng-deep
+  .mat-mdc-paginator
+  .mat-mdc-paginator-outer-container
+  .mat-mdc-paginator-container {
+  justify-content: space-between;
+}
+/* 
+::ng-deep
+  .mat-mdc-paginator
+  .mat-mdc-paginator-outer-container
+  .mat-mdc-paginator-container
+  .ng-star-inserted
+  .mat-mdc-paginator-page-size-label {
+  display: none;
+} */
+
+::ng-deep
+  .mat-mdc-paginator
+  .mat-mdc-paginator-outer-container
+  .mat-mdc-paginator-container
+  .ng-star-inserted
+  .mat-mdc-paginator-page-size-label::before {
+  content: "Đầu";
+}
+
+::ng-deep .myCustomTable .ng-star-inserted .mat-mdc-row .mdc-data-table__row {
+  background-color: red;
+}
+
+::ng-deep .mat-table {
+  border-collapse: separate;
+}
+
+::ng-deep .mat-row {
+  border-spacing: 0 10px !important;
+}
+
+::ng-deep .myCustomTable tr.mat-mdc-row:hover {
+  background-color: rgb(163, 194, 174);
+}
+
+.selected-row {
+  background-color: rgb(69, 131, 91);
+}
+
+::ng-deep
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(
+    .mat-mdc-option-multiple
+  ) {
+  background-color: green !important;
+  color: white !important;
+  text-align: center !important;
+}
+
+::ng-deep
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled)
+  .mdc-list-item__primary-text {
+  color: white !important;
+  font-weight: 500 !important;
+}

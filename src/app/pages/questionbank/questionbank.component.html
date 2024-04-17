@@ -3,5 +3,11 @@
   <app-side-bar></app-side-bar>
   <div class="bodyright">
     <app-filters></app-filters>
+    <app-search-text
+      (search)="onSearch($event)"
+      (filterReset)="onResetFilter()"
+    >
+    </app-search-text>
+    <app-questionbank-list [searchText]="searchText"></app-questionbank-list>
   </div>
 </div>

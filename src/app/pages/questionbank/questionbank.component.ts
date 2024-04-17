@@ -6,4 +6,14 @@ import { MenuComponent } from './components/menu/menu.component';
   templateUrl: './questionbank.component.html',
   styleUrls: ['./questionbank.component.css'],
 })
-export class QuestionbankComponent {}
+export class QuestionbankComponent {
+  searchText: string = '';
+
+  onSearch(searchText: string): void {
+    this.searchText = searchText;
+    // console.log(searchText);
+  }
+  onResetFilter(): void {
+    this.searchText = '';
+  }
+}
